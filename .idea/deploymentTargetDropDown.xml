@@ -10,12 +10,12 @@
               <deviceKey>
                 <Key>
                   <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\lange\.android\avd\Samsung_S23_API_34.avd" />
+                  <value value="C:\Users\최동현\.android\avd\Galaxy_23_plus_API_34.avd" />
                 </Key>
               </deviceKey>
             </Target>
           </targetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-04-29T14:48:29.766008100Z" />
+          <timeTargetWasSelectedWithDropDown value="2024-05-20T15:03:19.757267200Z" />
         </State>
       </entry>
     </value>
