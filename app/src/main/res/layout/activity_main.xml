@@ -11,12 +11,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/sunnyday" />
+        android:src="@drawable/sunny_day" />
 
     <Spinner
         android:id="@+id/my_spinner"
-        android:layout_width="460dp"
-        android:layout_height="50dp"
+        android:layout_width="500dp"
+        android:layout_height="60dp"
         android:background="#5555"
         android:popupBackground="#5555"
         android:spinnerMode="dropdown"
@@ -39,10 +39,9 @@
         android:textSize="20dp"
         android:text="도시 선택"/>
 
-
     <View
         android:id="@+id/view"
-        android:layout_width="400dp"
+        android:layout_width="370dp"
         android:layout_height="300dp"
         android:background="#0000"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -53,60 +52,6 @@
         app:layout_constraintVertical_bias="0.232"
         tools:ignore="MissingConstraints" />
 
-    <TextView
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="시간 1"
-        android:textAlignment="center"
-        android:textSize="18sp"
-
-        android:layout_width="400dp"
-        android:layout_height="300dp"
-        android:background="#0000"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintHorizontal_bias="0.454"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.188" />
-
-
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:gravity="center"
-        android:src="@drawable/sunny_icon"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.272" />
-
-    <TextView
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="최고/최저"
-        android:textAlignment="center"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.427" />
-        app:layout_constraintVertical_bias="0.232"
-        tools:ignore="MissingConstraints" />
-
-    <HorizontalScrollView
-        android:layout_width="460dp"
-        android:layout_height="130dp"
-        android:background="#5555"
-        app:layout_constraintBottom_toBottomOf="parent"
     <TextView
         android:id="@+id/Nowtime"
         android:layout_width="80dp"
@@ -126,22 +71,23 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:gravity="center"
-        android:src="@drawable/windyicon"
+        android:src="@drawable/sunny_icon"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.588"/>
+        app:layout_constraintVertical_bias="0.272" />
 
     <TextView
+        android:id="@+id/nowtem"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="최고/최저"
         android:textAlignment="center"
         android:textSize="30sp"
+        android:text="최고 최저 예제"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -149,16 +95,24 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.427" />
 
+    <View
+        android:id="@+id/verticalGapView1"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        app:layout_constraintTop_toBottomOf="@+id/view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 
     <HorizontalScrollView
         android:id="@+id/DayWeatherScroll"
-        android:layout_width="411dp"
-        android:layout_height="130dp"
+        android:layout_width="500dp"
+        android:layout_height="140dp"
         android:background="#5555"
         android:scrollbars="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view"
+        app:layout_constraintTop_toBottomOf="@+id/verticalGapView1"
         tools:ignore="MissingConstraints">
 
         <LinearLayout
@@ -176,14 +130,6 @@
 
                 <!-- 날씨 표시 -->
                 <TextView
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="시간 1"
-                    android:textAlignment="center"
-                    android:textSize="18sp" />
-
-                <TextView
                     android:id="@+id/time241"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
@@ -196,8 +142,7 @@
                     android:layout_height="52dp"
                     android:layout_weight="1"
                     android:scaleType="fitXY"
-                    android:src="@drawable/sunny_icon" />
-                    android:src="@drawable/loudicon" />
+                    android:src="@drawable/windy_icon" />
 
                 <!-- 텍스트 뷰 -->
                 <TextView
@@ -218,14 +163,6 @@
 
                 <!-- 날씨 표시 -->
                 <TextView
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="시간 1"
-                    android:textAlignment="center"
-                    android:textSize="18sp" />
-
-                <TextView
                     android:id="@+id/time242"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
@@ -240,7 +177,6 @@
                     android:layout_weight="1"
                     android:scaleType="fitXY"
                     android:src="@drawable/windy_icon" />
-                    android:src="@drawable/loudicon" />
 
                 <!-- 텍스트 뷰 -->
                 <TextView
@@ -269,21 +205,12 @@
                     android:textAlignment="center"
                     android:textSize="18sp" />
 
-                <TextView
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="시간 1"
-                    android:textAlignment="center"
-                    android:textSize="18sp" />
-
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:layout_weight="1"
                     android:scaleType="fitXY"
-                    android:src="@drawable/snowfall_icon" />
-                    android:src="@drawable/loudicon" />
+                    android:src="@drawable/windy_icon" />
 
                 <!-- 텍스트 뷰 -->
                 <TextView
@@ -294,27 +221,6 @@
                     android:textAlignment="center"
                     android:textSize="18sp" />
             </LinearLayout>
-
-        </LinearLayout>
-    </HorizontalScrollView>
-
-    <HorizontalScrollView
-        android:layout_width="460dp"
-        android:layout_height="150dp"
-        android:background="#5555"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.823"
-        tools:ignore="MissingConstraints">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <!-- 이미지를 표시하는 레이아웃 -->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -333,35 +239,19 @@
                     android:textAlignment="center"
                     android:textSize="18sp" />
 
-                <TextView
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="이틀"
-                    android:textAlignment="center"
-                    android:textSize="18sp" />
-
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:layout_weight="1"
                     android:scaleType="fitXY"
-                    android:src="@drawable/rainy_icon" />
+                    android:src="@drawable/sunny_icon" />
 
                 <!-- 텍스트 뷰 -->
                 <TextView
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="최고/최저"
-                    android:textAlignment="center"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="강수확률"
+                    android:text="날씨 1"
                     android:textAlignment="center"
                     android:textSize="18sp" />
             </LinearLayout>
@@ -383,27 +273,19 @@
                     android:textAlignment="center"
                     android:textSize="18sp" />
 
-                <TextView
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="사흘"
-                    android:textAlignment="center"
-                    android:textSize="18sp" />
-
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:layout_weight="1"
                     android:scaleType="fitXY"
-                    android:src="@drawable/icon" />
+                    android:src="@drawable/windy_icon" />
 
                 <!-- 텍스트 뷰 -->
                 <TextView
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="최고/최저"
+                    android:text="날씨 1"
                     android:textAlignment="center"
                     android:textSize="18sp" />
             </LinearLayout>
@@ -430,14 +312,14 @@
                     android:layout_height="52dp"
                     android:layout_weight="1"
                     android:scaleType="fitXY"
-                    android:src="@drawable/loudicon" />
+                    android:src="@drawable/windy_icon" />
 
                 <!-- 텍스트 뷰 -->
                 <TextView
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="강수확률"
+                    android:text="날씨 1"
                     android:textAlignment="center"
                     android:textSize="18sp" />
             </LinearLayout>
@@ -464,14 +346,14 @@
                     android:layout_height="52dp"
                     android:layout_weight="1"
                     android:scaleType="fitXY"
-                    android:src="@drawable/loudicon" />
+                    android:src="@drawable/windy_icon" />
 
                 <!-- 텍스트 뷰 -->
                 <TextView
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="나흘"
+                    android:text="날씨 1"
                     android:textAlignment="center"
                     android:textSize="18sp" />
             </LinearLayout>
@@ -480,22 +362,22 @@
     </HorizontalScrollView>
 
     <View
-        android:id="@+id/verticalGapView"
+        android:id="@+id/verticalGapView2"
         android:layout_width="0dp"
-        android:layout_height="30dp"
+        android:layout_height="70dp"
         app:layout_constraintTop_toBottomOf="@id/DayWeatherScroll"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <HorizontalScrollView
         android:id="@+id/WeekWeatherScroll"
-        android:layout_width="411dp"
-        android:layout_height="150dp"
+        android:layout_width="500dp"
+        android:layout_height="180dp"
         android:background="#5555"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="550dp"
-        app:layout_constraintTop_toBottomOf="@id/verticalGapView"
+        app:layout_constraintTop_toBottomOf="@id/verticalGapView2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
@@ -527,7 +409,7 @@
                     android:layout_height="52dp"
                     android:layout_weight="1"
                     android:scaleType="fitXY"
-                    android:src="@drawable/loudicon" />
+                    android:src="@drawable/windy_icon" />
 
                 <!-- 텍스트 뷰 -->
                 <TextView
@@ -568,8 +450,7 @@
                     android:layout_height="52dp"
                     android:layout_weight="1"
                     android:scaleType="fitXY"
-                    android:src="@drawable/loudicon" />
-                    android:src="@drawable/sunny_icon" />
+                    android:src="@drawable/windy_icon" />
 
                 <!-- 텍스트 뷰 -->
                 <TextView
@@ -610,7 +491,7 @@
                     android:layout_height="52dp"
                     android:layout_weight="1"
                     android:scaleType="fitXY"
-                    android:src="@drawable/loudicon" />
+                    android:src="@drawable/windy_icon" />
 
                 <!-- 텍스트 뷰 -->
                 <TextView
@@ -650,7 +531,7 @@
                     android:layout_height="52dp"
                     android:layout_weight="1"
                     android:scaleType="fitXY"
-                    android:src="@drawable/loudicon" />
+                    android:src="@drawable/windy_icon" />
 
                 <!-- 텍스트 뷰 -->
                 <TextView
@@ -690,7 +571,7 @@
                     android:layout_height="52dp"
                     android:layout_weight="1"
                     android:scaleType="fitXY"
-                    android:src="@drawable/loudicon" />
+                    android:src="@drawable/windy_icon" />
 
                 <!-- 텍스트 뷰 -->
                 <TextView
@@ -705,9 +586,15 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="강수확률"
-                    android:text="최고/최저"
                     android:textAlignment="center"
                     android:textSize="18sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:orientation="vertical"
+                android:padding="10dp">
 
                 <!-- 날씨 표시 -->
                 <TextView
@@ -724,14 +611,13 @@
                     android:layout_height="52dp"
                     android:layout_weight="1"
                     android:scaleType="fitXY"
-                    android:src="@drawable/loudicon" />
+                    android:src="@drawable/windy_icon" />
 
                 <!-- 텍스트 뷰 -->
                 <TextView
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="강수확률"
                     android:text="최고/최저"
                     android:textAlignment="center"
                     android:textSize="18sp" />
