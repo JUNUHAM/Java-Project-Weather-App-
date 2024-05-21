@@ -101,5 +101,15 @@ public class MainActivity extends AppCompatActivity {
             calendar7.add(Calendar.DAY_OF_MONTH, 1);
             currentTime7 = dateFormat7.format(calendar7.getTime());
         }
+        TodayNow today=new TodayNow();
+        NowWeather nowWeather = new NowWeather("1jdnhESiJyvL8T7ZVy%2FIF%2BLijO8GdJmzjAJptRzoWNgn%2FVAXr%2BP79CxEmEoEGkq1MqFTzFgOjnQWICts87VfmQ%3D%3D",today.formattedDate1,today.formattedDate2,59,125);
+        try {
+            String weatherData = nowWeather.fetchWeatherData();
+            TextView nowTemTextView = findViewById(R.id.nowtem);
+            nowTemTextView.setText(weatherData);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     }
 }
