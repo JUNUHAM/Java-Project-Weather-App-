@@ -45,9 +45,9 @@ public class NowWeather {
             String category = XmlHelper.getNodeTextContent(item.getElementsByTagName("category").item(0));
             String obsrValue = XmlHelper.getNodeTextContent(item.getElementsByTagName("obsrValue").item(0));
 
-            	if(category.equals("T1H")){
+            if (category.equals("T1H")) {
                 weatherDataBuilder.append(obsrValue).append("℃");
-            	}
+            }
         }
         return weatherDataBuilder.toString(); // StringBuilder를 String으로 변환하여 반환
     }

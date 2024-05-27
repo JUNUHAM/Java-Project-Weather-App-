@@ -9,12 +9,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
-
+import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import androidx.activity.EdgeToEdge;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         // 시간 처리
         // 현재 시간 가져오기
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM월 dd일 HH시", Locale.KOREA);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH시", Locale.KOREA);
         String currentTime = dateFormat.format(calendar.getTime());
 
         // Nowtime TextView 식별
@@ -140,4 +141,3 @@ public class MainActivity extends AppCompatActivity {
         }).start();
     }
 }
-
