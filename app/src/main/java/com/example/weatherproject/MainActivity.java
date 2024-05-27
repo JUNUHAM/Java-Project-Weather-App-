@@ -102,13 +102,37 @@ public class MainActivity extends AppCompatActivity {
             currentTime7 = dateFormat7.format(calendar7.getTime());
         }
         TodayNow today=new TodayNow();
+        Hour514 time = new Hour514();
         NowWeather nowWeather = new NowWeather("1jdnhESiJyvL8T7ZVy%2FIF%2BLijO8GdJmzjAJptRzoWNgn%2FVAXr%2BP79CxEmEoEGkq1MqFTzFgOjnQWICts87VfmQ%3D%3D",today.formattedDate1,today.formattedDate2,59,125);
         new Thread(() -> {
             try {
-                String weatherData = nowWeather.fetchWeatherData();
+                String nowweatherData = nowWeather.fetchWeatherData();
                 runOnUiThread(() -> {
                     TextView nowTemTextView = findViewById(R.id.nowTem);
-                    nowTemTextView.setText(weatherData);
+                    nowTemTextView.setText(nowweatherData);
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
+
+        TodayWeather todayWeather = new TodayWeather("1jdnhESiJyvL8T7ZVy%2FIF%2BLijO8GdJmzjAJptRzoWNgn%2FVAXr%2BP79CxEmEoEGkq1MqFTzFgOjnQWICts87VfmQ%3D%3D", today.formattedDate1, time.getFormattedTime(), 59, 125);
+        new Thread(() -> {
+            try {
+                String dayweatherData = todayWeather.fetchWeatherData();
+                String[] weatherDataArray = dayweatherData.split("\n");
+
+                runOnUiThread(() -> {
+                    for (int i = 0; i < 7; i++) {
+                        int textViewId = getResources().getIdentifier("daytem" + (i + 1), "id", getPackageName());
+                        TextView dayTemTextView = findViewById(textViewId);
+
+                        if (i < weatherDataArray.length) {
+                            dayTemTextView.setText(weatherDataArray[i]);
+                        } else {
+                            dayTemTextView.setText("N/A"); // 데이터가 부족한 경우 "N/A"로 표시
+                        }
+                    }
                 });
             } catch (Exception e) {
                 e.printStackTrace();
