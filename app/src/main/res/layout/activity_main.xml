@@ -420,6 +420,7 @@
 
                 <!-- 텍스트 뷰 -->
                 <TextView
+                    android:id="@+id/weektem1"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -461,6 +462,7 @@
 
                 <!-- 텍스트 뷰 -->
                 <TextView
+                    android:id="@+id/weektem2"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -502,6 +504,7 @@
 
                 <!-- 텍스트 뷰 -->
                 <TextView
+                    android:id="@+id/weektem3"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -542,6 +545,7 @@
 
                 <!-- 텍스트 뷰 -->
                 <TextView
+                    android:id="@+id/weektem4"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -582,6 +586,7 @@
 
                 <!-- 텍스트 뷰 -->
                 <TextView
+                    android:id="@+id/weektem5"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -622,6 +627,7 @@
 
                 <!-- 텍스트 뷰 -->
                 <TextView
+                    android:id="@+id/weektem6"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"

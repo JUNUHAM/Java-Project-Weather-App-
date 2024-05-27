@@ -104,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
         }
         TodayNow today=new TodayNow();
         Hour514 time = new Hour514();
+        Hour618 time6 = new Hour618();
         NowWeather nowWeather = new NowWeather("1jdnhESiJyvL8T7ZVy%2FIF%2BLijO8GdJmzjAJptRzoWNgn%2FVAXr%2BP79CxEmEoEGkq1MqFTzFgOjnQWICts87VfmQ%3D%3D",today.formattedDate1,today.formattedDate2,59,125);
         new Thread(() -> {
             try {
@@ -139,5 +140,34 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }).start();
+
+        WeekTem12 weektem12 = new WeekTem12("1jdnhESiJyvL8T7ZVy%2FIF%2BLijO8GdJmzjAJptRzoWNgn%2FVAXr%2BP79CxEmEoEGkq1MqFTzFgOjnQWICts87VfmQ%3D%3D", today.formattedDate1, time.getFormattedTime(), 59, 125);
+        WeekTem37 weektem37 = new WeekTem37("1jdnhESiJyvL8T7ZVy%2FIF%2BLijO8GdJmzjAJptRzoWNgn%2FVAXr%2BP79CxEmEoEGkq1MqFTzFgOjnQWICts87VfmQ%3D%3D", today.getFormattedDate1(), time6.getFormattedTime());
+        new Thread(() -> {
+            try {
+                String weekweatherData12 = weektem12.fetchWeatherData();
+                String[] weatherDataArray12 = weekweatherData12.split("\n");
+                String weekweatherData37 = weektem37.fetchWeatherData();
+                String[] weatherDataArray37 = weekweatherData37.split("\n");
+
+                runOnUiThread(() -> {
+                    for (int i = 0; i < weatherDataArray12.length; i++) { // 수정된 부분
+                        int textViewId = getResources().getIdentifier("weektem" + (i + 1), "id", getPackageName());
+                        TextView weekTemTextView12 = findViewById(textViewId);
+
+                        weekTemTextView12.setText(weatherDataArray12[i]);
+                    }
+                    for (int i = 2; i < weatherDataArray37.length; i++) { // 수정된 부분
+                        int textViewId = getResources().getIdentifier("weektem" + (i + 1), "id", getPackageName());
+                        TextView weekTemTextView37 = findViewById(textViewId);
+
+                        weekTemTextView37.setText(weatherDataArray37[i]);
+                    }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
+
     }
 }
