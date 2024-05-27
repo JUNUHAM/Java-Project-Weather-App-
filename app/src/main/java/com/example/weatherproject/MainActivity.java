@@ -1,5 +1,6 @@
 package com.example.weatherproject;
 
+import com.example.api.*;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -8,13 +9,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
-import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-import androidx.activity.EdgeToEdge;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         // 시간 처리
         // 현재 시간 가져오기
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("HH시", Locale.KOREA);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM월 dd일 HH시", Locale.KOREA);
         String currentTime = dateFormat.format(calendar.getTime());
 
         // Nowtime TextView 식별
@@ -101,5 +101,19 @@ public class MainActivity extends AppCompatActivity {
             calendar7.add(Calendar.DAY_OF_MONTH, 1);
             currentTime7 = dateFormat7.format(calendar7.getTime());
         }
+        TodayNow today=new TodayNow();
+        NowWeather nowWeather = new NowWeather("1jdnhESiJyvL8T7ZVy%2FIF%2BLijO8GdJmzjAJptRzoWNgn%2FVAXr%2BP79CxEmEoEGkq1MqFTzFgOjnQWICts87VfmQ%3D%3D",today.formattedDate1,today.formattedDate2,59,125);
+        new Thread(() -> {
+            try {
+                String weatherData = nowWeather.fetchWeatherData();
+                runOnUiThread(() -> {
+                    TextView nowTemTextView = findViewById(R.id.nowTem);
+                    nowTemTextView.setText(weatherData);
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 }
+
