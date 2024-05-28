@@ -7,14 +7,14 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Element;
 import java.net.URL;
 
-public class WeekTem12 {
+public class WeekP12 {
     private final String serviceKey;
     private final String baseDate;
     private final String baseTime;
     private final int nx;
     private final int ny;
 
-    public WeekTem12(String serviceKey, String baseDate, String baseTime, int nx, int ny) {
+    public WeekP12(String serviceKey, String baseDate, String baseTime, int nx, int ny) {
         this.serviceKey = serviceKey;
         this.baseDate = baseDate;
         this.baseTime = baseTime;
@@ -40,29 +40,27 @@ public class WeekTem12 {
         Document doc = builder.parse(new URL(url).openStream());
 
         NodeList itemList = doc.getElementsByTagName("item");
-        String tmxValue = null;
-        String tmnValue = null;
+        String amValue = null;
+        String pmValue = null;
         for (int i = 0; i < itemList.getLength(); i++) {
             Element item = (Element) itemList.item(i);
             String category = XmlHelper.getNodeTextContent(item.getElementsByTagName("category").item(0));
             String fcstValue = XmlHelper.getNodeTextContent(item.getElementsByTagName("fcstValue").item(0));
-
-            if (category.equals("TMN")) {
-                tmxValue = fcstValue;
-            } else if (category.equals("TMX")) {
-                tmnValue = fcstValue;
+            String fcstTime = XmlHelper.getNodeTextContent(item.getElementsByTagName("fcstTime").item(0));
+            if (category.equals("POP")) {
+                if(fcstTime.equals("0600")) {
+                    amValue = fcstValue;
+                }
+                else if(fcstTime.equals("1800")){
+                    pmValue = fcstValue;
+                }
+            }
+            if (amValue != null && pmValue != null) {
+                weatherDataBuilder.append(amValue).append("%/").append(pmValue).append("%\n");
+                amValue = null;
+                pmValue = null;
             }
 
-            // TMX와 TMN 값이 모두 존재하는 경우에만 출력하고 변수 초기화
-            if (tmxValue != null && tmnValue != null) {
-                // 소수점 제거
-                int tmxInt = (int) Math.round(Double.parseDouble(tmxValue));
-                int tmnInt = (int) Math.round(Double.parseDouble(tmnValue));
-
-                weatherDataBuilder.append(tmxInt).append("℃/").append(tmnInt).append("℃\n");
-                tmxValue = null;
-                tmnValue = null;
-            }
         }
 
         return weatherDataBuilder.toString();

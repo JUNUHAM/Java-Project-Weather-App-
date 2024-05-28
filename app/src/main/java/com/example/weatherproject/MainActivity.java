@@ -20,9 +20,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class MainActivity extends AppCompatActivity {
 
     TextView cityName;
+    private ExecutorService executorService;
 
     String[] itmes = {"서울", "인천", "대전", "대구", "울산", "부산", "광주", "안양"};
     @Override
@@ -102,72 +106,92 @@ public class MainActivity extends AppCompatActivity {
             calendar7.add(Calendar.DAY_OF_MONTH, 1);
             currentTime7 = dateFormat7.format(calendar7.getTime());
         }
-        TodayNow today=new TodayNow();
-        Hour514 time = new Hour514();
+
+        TodayNow today = new TodayNow();
+        exToday extoday=new exToday();
+        Hour514 time5 = new Hour514();
         Hour618 time6 = new Hour618();
+
         NowWeather nowWeather = new NowWeather("1jdnhESiJyvL8T7ZVy%2FIF%2BLijO8GdJmzjAJptRzoWNgn%2FVAXr%2BP79CxEmEoEGkq1MqFTzFgOjnQWICts87VfmQ%3D%3D",today.formattedDate1,today.formattedDate2,59,125);
-        new Thread(() -> {
+        TodayWeather todayWeather = new TodayWeather("1jdnhESiJyvL8T7ZVy%2FIF%2BLijO8GdJmzjAJptRzoWNgn%2FVAXr%2BP79CxEmEoEGkq1MqFTzFgOjnQWICts87VfmQ%3D%3D", extoday.getFormattedDate(), time5.getFormattedTime(), 59, 125);
+        WeekTem12 weektem12 = new WeekTem12("1jdnhESiJyvL8T7ZVy%2FIF%2BLijO8GdJmzjAJptRzoWNgn%2FVAXr%2BP79CxEmEoEGkq1MqFTzFgOjnQWICts87VfmQ%3D%3D", extoday.getFormattedDate(),time5.getFormattedTime(), 59, 125);
+        WeekTem37 weektem37 = new WeekTem37("1jdnhESiJyvL8T7ZVy%2FIF%2BLijO8GdJmzjAJptRzoWNgn%2FVAXr%2BP79CxEmEoEGkq1MqFTzFgOjnQWICts87VfmQ%3D%3D", extoday.getFormattedDate(), time6.getFormattedTime());
+        WeekP12 weekp12 =new WeekP12("1jdnhESiJyvL8T7ZVy%2FIF%2BLijO8GdJmzjAJptRzoWNgn%2FVAXr%2BP79CxEmEoEGkq1MqFTzFgOjnQWICts87VfmQ%3D%3D", extoday.getFormattedDate(), time5.getFormattedTime(), 59, 125);
+        WeekP37 weekp37 =new WeekP37("1jdnhESiJyvL8T7ZVy%2FIF%2BLijO8GdJmzjAJptRzoWNgn%2FVAXr%2BP79CxEmEoEGkq1MqFTzFgOjnQWICts87VfmQ%3D%3D", extoday.getFormattedDate(), time6.getFormattedTime());
+
+        executorService = Executors.newSingleThreadExecutor();
+
+        executorService.execute(() -> {
             try {
                 String nowweatherData = nowWeather.fetchWeatherData();
+
+                String todayweatherData = todayWeather.fetchWeatherData();
+                String[] todayweatherDataArray = todayweatherData.split("\n");
+
+                String weekweatherData12 = weektem12.fetchWeatherData();
+                String[] weatherDataArray12 = weekweatherData12.split("\n");
+
+                String weekweatherData37 = weektem37.fetchWeatherData();
+                String[] weatherDataArray37 = weekweatherData37.split("\n");
+
+                String weekPercentData12 = weekp12.fetchWeatherData();
+                String[] PercentDataArray12 = weekPercentData12.split("\n");
+
+                String weekPercentData37 = weekp37.fetchWeatherData();
+                String[] PercentDataArray37 = weekPercentData37.split("\n");
+
+
+
                 runOnUiThread(() -> {
                     TextView nowTemTextView = findViewById(R.id.nowTem);
                     nowTemTextView.setText(nowweatherData);
-                });
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }).start();
 
-        TodayWeather todayWeather = new TodayWeather("1jdnhESiJyvL8T7ZVy%2FIF%2BLijO8GdJmzjAJptRzoWNgn%2FVAXr%2BP79CxEmEoEGkq1MqFTzFgOjnQWICts87VfmQ%3D%3D", today.formattedDate1, time.getFormattedTime(), 59, 125);
-        new Thread(() -> {
-            try {
-                String dayweatherData = todayWeather.fetchWeatherData();
-                String[] weatherDataArray = dayweatherData.split("\n");
-
-                runOnUiThread(() -> {
                     for (int i = 0; i < 7; i++) {
                         int textViewId = getResources().getIdentifier("daytem" + (i + 1), "id", getPackageName());
                         TextView dayTemTextView = findViewById(textViewId);
 
-                        if (i < weatherDataArray.length) {
-                            dayTemTextView.setText(weatherDataArray[i]);
+                        if (i < todayweatherDataArray.length) {
+                            dayTemTextView.setText(todayweatherDataArray[i]);
                         } else {
                             dayTemTextView.setText("N/A"); // 데이터가 부족한 경우 "N/A"로 표시
                         }
                     }
-                });
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }).start();
 
-        WeekTem12 weektem12 = new WeekTem12("1jdnhESiJyvL8T7ZVy%2FIF%2BLijO8GdJmzjAJptRzoWNgn%2FVAXr%2BP79CxEmEoEGkq1MqFTzFgOjnQWICts87VfmQ%3D%3D", today.formattedDate1, time.getFormattedTime(), 59, 125);
-        WeekTem37 weektem37 = new WeekTem37("1jdnhESiJyvL8T7ZVy%2FIF%2BLijO8GdJmzjAJptRzoWNgn%2FVAXr%2BP79CxEmEoEGkq1MqFTzFgOjnQWICts87VfmQ%3D%3D", today.getFormattedDate1(), time6.getFormattedTime());
-        new Thread(() -> {
-            try {
-                String weekweatherData12 = weektem12.fetchWeatherData();
-                String[] weatherDataArray12 = weekweatherData12.split("\n");
-                String weekweatherData37 = weektem37.fetchWeatherData();
-                String[] weatherDataArray37 = weekweatherData37.split("\n");
-
-                runOnUiThread(() -> {
-                    for (int i = 0; i < weatherDataArray12.length; i++) { // 수정된 부분
-                        int textViewId = getResources().getIdentifier("weektem" + (i + 1), "id", getPackageName());
+                    for (int i = 1; i <= 2; i++) {
+                        int textViewId = getResources().getIdentifier("weektem" + i, "id", getPackageName());
                         TextView weekTemTextView12 = findViewById(textViewId);
-
-                        weekTemTextView12.setText(weatherDataArray12[i]);
+                        weekTemTextView12.setText(weatherDataArray12[i - 1]); // i - 1을 사용하여 배열 인덱스와 TextView의 인덱스를 맞춤
                     }
-                    for (int i = 2; i < weatherDataArray37.length; i++) { // 수정된 부분
-                        int textViewId = getResources().getIdentifier("weektem" + (i + 1), "id", getPackageName());
-                        TextView weekTemTextView37 = findViewById(textViewId);
 
-                        weekTemTextView37.setText(weatherDataArray37[i]);
+                    for (int i = 3; i <= 6; i++) {
+                        int textViewId = getResources().getIdentifier("weektem" + i, "id", getPackageName());
+                        TextView weekTemTextView37 = findViewById(textViewId);
+                        weekTemTextView37.setText(weatherDataArray37[i - 3]); // i - 3을 사용하여 배열 인덱스와 TextView의 인덱스를 맞춤
+                    }
+
+                    for (int i = 1; i <= 2; i++) {
+                        int textViewId = getResources().getIdentifier("weekp" + i, "id", getPackageName());
+                        TextView weekperTextView12 = findViewById(textViewId);
+                        weekperTextView12.setText(PercentDataArray12[i - 1]); // i - 1을 사용하여 배열 인덱스와 TextView의 인덱스를 맞춤
+                    }
+
+                    for (int i = 3; i <= 6; i++) {
+                        int textViewId = getResources().getIdentifier("weekp" + i, "id", getPackageName());
+                        TextView weekperTextView37 = findViewById(textViewId);
+                        weekperTextView37.setText(PercentDataArray37[i - 3]); // i - 3을 사용하여 배열 인덱스와 TextView의 인덱스를 맞춤
                     }
                 });
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }).start();
-
+        });
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // 액티비티가 종료될 때 ExecutorService를 종료
+        if (executorService != null) {
+            executorService.shutdown();
+        }
     }
 }

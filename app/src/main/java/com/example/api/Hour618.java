@@ -3,6 +3,9 @@ package com.example.api;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Hour618 {
     TodayNow today = new TodayNow();
     private int[] allowedHours = {6, 18}; // 6시와 18시만 허용
@@ -14,15 +17,20 @@ public class Hour618 {
 
     public void roundToNearestAllowedHour() {
         int currentHour = currentDateTime.getHour();
-        int nearestHour = allowedHours[0];
-        for (int hour : allowedHours) {
-            if (currentHour >= hour) {
-                nearestHour = hour;
-            } else {
-                break;
+        // 현재 시간이 0시부터 6시 사이인 경우 18시로 설정
+        if (currentHour >= 0 && currentHour < 6) {
+            currentDateTime = currentDateTime.withHour(18);
+        } else { // 그 외의 경우에는 가장 가까운 시간으로 설정
+            int nearestHour = allowedHours[0];
+            for (int hour : allowedHours) {
+                if (currentHour >= hour) {
+                    nearestHour = hour;
+                } else {
+                    break;
+                }
             }
+            currentDateTime = currentDateTime.withHour(nearestHour);
         }
-        currentDateTime = currentDateTime.withHour(nearestHour);
     }
 
     public String getFormattedTime() {

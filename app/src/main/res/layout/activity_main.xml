@@ -428,6 +428,7 @@
                     android:textAlignment="center"
                     android:textSize="18sp" />
                 <TextView
+                    android:id="@+id/weekp1"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -470,6 +471,7 @@
                     android:textAlignment="center"
                     android:textSize="18sp" />
                 <TextView
+                    android:id="@+id/weekp2"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -512,6 +514,7 @@
                     android:textAlignment="center"
                     android:textSize="18sp" />
                 <TextView
+                    android:id="@+id/weekp3"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -553,6 +556,7 @@
                     android:textAlignment="center"
                     android:textSize="18sp" />
                 <TextView
+                    android:id="@+id/weekp4"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -594,6 +598,7 @@
                     android:textAlignment="center"
                     android:textSize="18sp" />
                 <TextView
+                    android:id="@+id/weekp5"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -635,6 +640,7 @@
                     android:textAlignment="center"
                     android:textSize="18sp" />
                 <TextView
+                    android:id="@+id/weekp6"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
