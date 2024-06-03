@@ -8,14 +8,13 @@ import org.w3c.dom.Element;
 import java.net.URL;
 
 public class WeekTem12 {
-    private final String serviceKey;
+
     private final String baseDate;
     private final String baseTime;
     private final int nx;
     private final int ny;
 
-    public WeekTem12(String serviceKey, String baseDate, String baseTime, int nx, int ny) {
-        this.serviceKey = serviceKey;
+    public WeekTem12( String baseDate, String baseTime, int nx, int ny) {
         this.baseDate = baseDate;
         this.baseTime = baseTime;
         this.nx = nx;
@@ -26,7 +25,7 @@ public class WeekTem12 {
         StringBuilder weatherDataBuilder = new StringBuilder();
 
         String url = "https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst"
-                + "?serviceKey=" + serviceKey
+                + "?serviceKey=1jdnhESiJyvL8T7ZVy%2FIF%2BLijO8GdJmzjAJptRzoWNgn%2FVAXr%2BP79CxEmEoEGkq1MqFTzFgOjnQWICts87VfmQ%3D%3D"
                 + "&pageNo=1"
                 + "&numOfRows=1000"
                 + "&dataType=XML"

@@ -10,13 +10,11 @@ import java.time.LocalDate;
 
 
 public class WeekP37 {
-    private final String serviceKey;
     private final String baseDate;
     private final String baseTime;
     private final String regId;
 
-    public WeekP37(String serviceKey, String baseDate, String baseTime, String regId) {
-        this.serviceKey = serviceKey;
+    public WeekP37( String baseDate, String baseTime, String regId) {
         this.baseDate = baseDate;
         this.baseTime = baseTime;
         this.regId = regId;
@@ -25,13 +23,13 @@ public class WeekP37 {
         StringBuilder weatherDataBuilder = new StringBuilder(); // StringBuilder 객체 생성
 
         String url = "https://apis.data.go.kr/1360000/MidFcstInfoService/getMidLandFcst"
-                + "?serviceKey=" + serviceKey //서비스키
+                + "?serviceKey=1jdnhESiJyvL8T7ZVy%2FIF%2BLijO8GdJmzjAJptRzoWNgn%2FVAXr%2BP79CxEmEoEGkq1MqFTzFgOjnQWICts87VfmQ%3D%3D"
                 + "&pageNo=1"		//페이지 번호
                 + "&numOfRows=10" //한 페이지 결과 수
                 + "&dataType=XML" 	//응답자료형식
                 + "&regId="+regId		//지점번호
                 + "&tmFc="+baseDate+baseTime; //발표시각
-        System.out.println(url);
+
         // XML 데이터를 읽어오기
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();

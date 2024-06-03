@@ -8,13 +8,11 @@ import org.w3c.dom.Element;
 import java.net.URL;
 
 public class WeekTem37 {
-    private final String serviceKey;
     private final String baseDate;
     private final String baseTime;
     private final String regId;
 
-    public WeekTem37(String serviceKey, String baseDate, String baseTime ,String regId) {
-        this.serviceKey = serviceKey;
+    public WeekTem37( String baseDate, String baseTime ,String regId) {
         this.baseDate = baseDate;
         this.baseTime = baseTime;
         this.regId= regId;
@@ -24,7 +22,7 @@ public class WeekTem37 {
 
         // 서비스 키와 URL 설정
         String url = "https://apis.data.go.kr/1360000/MidFcstInfoService/getMidTa" //중기기온조회
-                + "?serviceKey=" + serviceKey //서비스키
+                + "?serviceKey=1jdnhESiJyvL8T7ZVy%2FIF%2BLijO8GdJmzjAJptRzoWNgn%2FVAXr%2BP79CxEmEoEGkq1MqFTzFgOjnQWICts87VfmQ%3D%3D"
                 + "&pageNo=1"		//페이지 번호
                 + "&numOfRows=10" //한 페이지 결과 수
                 + "&dataType=XML" 	//응답자료형식
