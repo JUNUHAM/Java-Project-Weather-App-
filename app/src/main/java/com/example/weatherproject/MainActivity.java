@@ -9,13 +9,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
-import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-import androidx.activity.EdgeToEdge;
+
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -25,8 +25,17 @@ import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
 
+    private NowWeather nowWeather;
+    private TodayWeather todayWeather;
+    private WeekTem12 weektem12;
+    private WeekTem37 weektem37;
+    private WeekP12 weekp12;
+    private WeekP37 weekp37;
     TextView cityName;
     private ExecutorService executorService;
+    private int nx;
+    private int ny;
+    private String regId;
 
     String[] itmes = {"서울", "인천", "대전", "대구", "울산", "부산", "광주", "안양"};
     @Override
@@ -68,6 +77,62 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 cityName.setText(itmes[position]);
+
+                switch(position){
+                    case 0: //서울
+                        nx=60;
+                        ny=126;
+                        regId="11B10101";
+                        break;
+                    case 1: //인천
+                        nx=56;
+                        ny=126;
+                        regId="11B20201";
+                        break;
+                    case 2: //대전
+                        nx=67;
+                        ny=100;
+                        regId="11C20401";
+                        break;
+                    case 3: //대구
+                        nx=89;
+                        ny=90;
+                        regId="11H10701";
+                        break;
+                    case 4: //울산
+                        nx=102;
+                        ny=84;
+                        regId="11H20101";
+                        break;
+                    case 5: //부산
+                        nx=98;
+                        ny=76;
+                        regId="11H20201";
+                        break;
+                    case 6: //광주
+                        nx=58;
+                        ny=74;
+                        regId="11B20702";
+                        break;
+                    case 7: //안양
+                        nx=59;
+                        ny=123;
+                        regId="11B20602";
+                        break;
+                }
+                TodayNow today = new TodayNow();
+                exToday extoday=new exToday();
+                Hour514 time5 = new Hour514();
+                Hour618 time6 = new Hour618();
+
+                nowWeather = new NowWeather("1jdnhESiJyvL8T7ZVy%2FIF%2BLijO8GdJmzjAJptRzoWNgn%2FVAXr%2BP79CxEmEoEGkq1MqFTzFgOjnQWICts87VfmQ%3D%3D", today.formattedDate1, today.formattedDate2, nx, ny);
+                todayWeather = new TodayWeather("1jdnhESiJyvL8T7ZVy%2FIF%2BLijO8GdJmzjAJptRzoWNgn%2FVAXr%2BP79CxEmEoEGkq1MqFTzFgOjnQWICts87VfmQ%3D%3D", extoday.getFormattedDate(), time5.getFormattedTime(), nx, ny);
+                weektem12 = new WeekTem12("1jdnhESiJyvL8T7ZVy%2FIF%2BLijO8GdJmzjAJptRzoWNgn%2FVAXr%2BP79CxEmEoEGkq1MqFTzFgOjnQWICts87VfmQ%3D%3D", extoday.getFormattedDate(), time5.getFormattedTime(), nx, ny);
+                weektem37 = new WeekTem37("1jdnhESiJyvL8T7ZVy%2FIF%2BLijO8GdJmzjAJptRzoWNgn%2FVAXr%2BP79CxEmEoEGkq1MqFTzFgOjnQWICts87VfmQ%3D%3D", extoday.getFormattedDate(), time6.getFormattedTime(), regId);
+                weekp12 = new WeekP12("1jdnhESiJyvL8T7ZVy%2FIF%2BLijO8GdJmzjAJptRzoWNgn%2FVAXr%2BP79CxEmEoEGkq1MqFTzFgOjnQWICts87VfmQ%3D%3D", extoday.getFormattedDate(), time5.getFormattedTime(), nx, ny);
+                weekp37 = new WeekP37("1jdnhESiJyvL8T7ZVy%2FIF%2BLijO8GdJmzjAJptRzoWNgn%2FVAXr%2BP79CxEmEoEGkq1MqFTzFgOjnQWICts87VfmQ%3D%3D", extoday.getFormattedDate(), time6.getFormattedTime(), regId);
+
+
             }
 
             @Override
@@ -107,17 +172,6 @@ public class MainActivity extends AppCompatActivity {
             currentTime7 = dateFormat7.format(calendar7.getTime());
         }
 
-        TodayNow today = new TodayNow();
-        exToday extoday=new exToday();
-        Hour514 time5 = new Hour514();
-        Hour618 time6 = new Hour618();
-
-        NowWeather nowWeather = new NowWeather("1jdnhESiJyvL8T7ZVy%2FIF%2BLijO8GdJmzjAJptRzoWNgn%2FVAXr%2BP79CxEmEoEGkq1MqFTzFgOjnQWICts87VfmQ%3D%3D",today.formattedDate1,today.formattedDate2,59,125);
-        TodayWeather todayWeather = new TodayWeather("1jdnhESiJyvL8T7ZVy%2FIF%2BLijO8GdJmzjAJptRzoWNgn%2FVAXr%2BP79CxEmEoEGkq1MqFTzFgOjnQWICts87VfmQ%3D%3D", extoday.getFormattedDate(), time5.getFormattedTime(), 59, 125);
-        WeekTem12 weektem12 = new WeekTem12("1jdnhESiJyvL8T7ZVy%2FIF%2BLijO8GdJmzjAJptRzoWNgn%2FVAXr%2BP79CxEmEoEGkq1MqFTzFgOjnQWICts87VfmQ%3D%3D", extoday.getFormattedDate(),time5.getFormattedTime(), 59, 125);
-        WeekTem37 weektem37 = new WeekTem37("1jdnhESiJyvL8T7ZVy%2FIF%2BLijO8GdJmzjAJptRzoWNgn%2FVAXr%2BP79CxEmEoEGkq1MqFTzFgOjnQWICts87VfmQ%3D%3D", extoday.getFormattedDate(), time6.getFormattedTime());
-        WeekP12 weekp12 =new WeekP12("1jdnhESiJyvL8T7ZVy%2FIF%2BLijO8GdJmzjAJptRzoWNgn%2FVAXr%2BP79CxEmEoEGkq1MqFTzFgOjnQWICts87VfmQ%3D%3D", extoday.getFormattedDate(), time5.getFormattedTime(), 59, 125);
-        WeekP37 weekp37 =new WeekP37("1jdnhESiJyvL8T7ZVy%2FIF%2BLijO8GdJmzjAJptRzoWNgn%2FVAXr%2BP79CxEmEoEGkq1MqFTzFgOjnQWICts87VfmQ%3D%3D", extoday.getFormattedDate(), time6.getFormattedTime());
 
         executorService = Executors.newSingleThreadExecutor();
 

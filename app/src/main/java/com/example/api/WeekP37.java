@@ -13,11 +13,13 @@ public class WeekP37 {
     private final String serviceKey;
     private final String baseDate;
     private final String baseTime;
+    private final String regId;
 
-    public WeekP37(String serviceKey, String baseDate, String baseTime) {
+    public WeekP37(String serviceKey, String baseDate, String baseTime, String regId) {
         this.serviceKey = serviceKey;
         this.baseDate = baseDate;
         this.baseTime = baseTime;
+        this.regId = regId;
     }
     public String fetchWeatherData() throws Exception {
         StringBuilder weatherDataBuilder = new StringBuilder(); // StringBuilder 객체 생성
@@ -27,7 +29,7 @@ public class WeekP37 {
                 + "&pageNo=1"		//페이지 번호
                 + "&numOfRows=10" //한 페이지 결과 수
                 + "&dataType=XML" 	//응답자료형식
-                + "&regId=11B00000"		//지점번호
+                + "&regId="+regId		//지점번호
                 + "&tmFc="+baseDate+baseTime; //발표시각
         System.out.println(url);
         // XML 데이터를 읽어오기
