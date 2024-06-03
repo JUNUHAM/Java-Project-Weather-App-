@@ -68,7 +68,7 @@
 
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/NowWeatherIcon"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:gravity="center"
@@ -93,7 +93,8 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.402" />
+        app:layout_constraintVertical_bias="0.402"
+        android:text="Loading"/>
 
     <View
         android:id="@+id/verticalGapView1"
@@ -151,7 +152,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="날씨 1"
+                    android:text="loading.."
                     android:textAlignment="center"
                     android:textSize="18sp" />
             </LinearLayout>
@@ -186,7 +187,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="날씨 1"
+                    android:text="loading.."
                     android:textAlignment="center"
                     android:textSize="18sp" />
             </LinearLayout>
@@ -221,7 +222,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="날씨 1"
+                    android:text="loading.."
                     android:textAlignment="center"
                     android:textSize="18sp" />
             </LinearLayout>
@@ -256,7 +257,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="날씨 1"
+                    android:text="loading.."
                     android:textAlignment="center"
                     android:textSize="18sp" />
             </LinearLayout>
@@ -291,7 +292,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="날씨 1"
+                    android:text="loading.."
                     android:textAlignment="center"
                     android:textSize="18sp" />
             </LinearLayout>
@@ -326,7 +327,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="날씨 1"
+                    android:text="loading.."
                     android:textAlignment="center"
                     android:textSize="18sp" />
             </LinearLayout>
@@ -361,7 +362,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="날씨 1"
+                    android:text="loading.."
                     android:textAlignment="center"
                     android:textSize="18sp" />
             </LinearLayout>
@@ -408,7 +409,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="이틀"
+
                     android:textAlignment="center"
                     android:textSize="18sp" />
 
@@ -425,7 +426,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="최고/최저"
+                    android:text="loading.."
                     android:textAlignment="center"
                     android:textSize="18sp" />
                 <TextView
@@ -433,7 +434,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="강수확률"
+
                     android:textAlignment="center"
                     android:textSize="18sp" />
             </LinearLayout>
@@ -451,7 +452,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="사흘"
+
                     android:textAlignment="center"
                     android:textSize="18sp" />
 
@@ -468,7 +469,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="최고/최저"
+                    android:text="loading.."
                     android:textAlignment="center"
                     android:textSize="18sp" />
                 <TextView
@@ -476,7 +477,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="강수확률"
+
                     android:textAlignment="center"
                     android:textSize="18sp" />
             </LinearLayout>
@@ -494,7 +495,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="나흘"
+
                     android:textAlignment="center"
                     android:textSize="18sp" />
 
@@ -511,7 +512,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="최고/최저"
+                    android:text="loading.."
                     android:textAlignment="center"
                     android:textSize="18sp" />
                 <TextView
@@ -519,7 +520,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="강수확률"
+
                     android:textAlignment="center"
                     android:textSize="18sp" />
             </LinearLayout>
@@ -536,7 +537,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="5일"
+
                     android:textAlignment="center"
                     android:textSize="18sp" />
 
@@ -553,7 +554,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="최고/최저"
+                    android:text="loading.."
                     android:textAlignment="center"
                     android:textSize="18sp" />
                 <TextView
@@ -561,7 +562,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="강수확률"
+
                     android:textAlignment="center"
                     android:textSize="18sp" />
             </LinearLayout>
@@ -578,10 +579,11 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="6일"
+
                     android:textAlignment="center"
                     android:textSize="18sp" />
 
+                <!-- 텍스트 뷰 -->
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
@@ -589,13 +591,12 @@
                     android:scaleType="fitXY"
                     android:src="@drawable/windy_icon" />
 
-                <!-- 텍스트 뷰 -->
                 <TextView
                     android:id="@+id/weektem5"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="최고/최저"
+                    android:text="loading.."
                     android:textAlignment="center"
                     android:textSize="18sp" />
                 <TextView
@@ -603,7 +604,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="강수확률"
+
                     android:textAlignment="center"
                     android:textSize="18sp" />
             </LinearLayout>
@@ -620,7 +621,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="7일"
+
                     android:textAlignment="center"
                     android:textSize="18sp" />
 
@@ -637,7 +638,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="최고/최저"
+                    android:text="loading.."
                     android:textAlignment="center"
                     android:textSize="18sp" />
                 <TextView
@@ -645,7 +646,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="강수확률"
+
                     android:textAlignment="center"
                     android:textSize="18sp" />
             </LinearLayout>

@@ -7,6 +7,7 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Element;
 import java.net.URL;
 
+
 public class TodayWeather {
     private final String baseDate;
     private final String baseTime;
@@ -38,6 +39,7 @@ public class TodayWeather {
         Document doc = builder.parse(new URL(url).openStream());
 
         NodeList itemList = doc.getElementsByTagName("item");
+        String ptyValue = "0";
         for (int i = 0; i < 80; i++) {
             Element item = (Element) itemList.item(i);
             String category = XmlHelper.getNodeTextContent(item.getElementsByTagName("category").item(0));
@@ -46,7 +48,11 @@ public class TodayWeather {
             if (category.equals("TMP")) {
                 weatherDataBuilder.append(fcstValue).append("℃").append("\n");
             }
+            if (category.equals("PTY")) {
+                ptyValue = String.valueOf(fcstValue);  // PTY 값 저장
+            }
         }
+
         return weatherDataBuilder.toString();
     }
 }
