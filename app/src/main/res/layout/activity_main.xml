@@ -8,10 +8,11 @@
     tools:context=".MainActivity">
 
     <ImageView
+        android:id="@+id/nowTemBackGround"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/sunny_day" />
+        android:src="@drawable/sunny" />
 
     <Spinner
         android:id="@+id/my_spinner"
@@ -72,7 +73,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:gravity="center"
-        android:src="@drawable/sunny_icon"
+        android:src="@drawable/loading_logo"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -140,11 +141,12 @@
                     android:textSize="18sp" />
 
                 <ImageView
+                    android:id="@+id/dayimage1"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:layout_weight="1"
                     android:scaleType="fitXY"
-                    android:src="@drawable/windy_icon" />
+                    android:src="@drawable/loading_logo" />
 
                 <!-- 텍스트 뷰 -->
                 <TextView
@@ -175,11 +177,12 @@
                     android:textSize="18sp" />
 
                 <ImageView
+                    android:id="@+id/dayimage2"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:layout_weight="1"
                     android:scaleType="fitXY"
-                    android:src="@drawable/windy_icon" />
+                    android:src="@drawable/loading_logo" />
 
                 <!-- 텍스트 뷰 -->
                 <TextView
@@ -210,11 +213,12 @@
                     android:textSize="18sp" />
 
                 <ImageView
+                    android:id="@+id/dayimage3"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:layout_weight="1"
                     android:scaleType="fitXY"
-                    android:src="@drawable/windy_icon" />
+                    android:src="@drawable/loading_logo" />
 
                 <!-- 텍스트 뷰 -->
                 <TextView
@@ -245,11 +249,12 @@
                     android:textSize="18sp" />
 
                 <ImageView
+                    android:id="@+id/dayimage4"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:layout_weight="1"
                     android:scaleType="fitXY"
-                    android:src="@drawable/sunny_icon" />
+                    android:src="@drawable/loading_logo" />
 
                 <!-- 텍스트 뷰 -->
                 <TextView
@@ -280,11 +285,12 @@
                     android:textSize="18sp" />
 
                 <ImageView
+                    android:id="@+id/dayimage5"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:layout_weight="1"
                     android:scaleType="fitXY"
-                    android:src="@drawable/windy_icon" />
+                    android:src="@drawable/loading_logo" />
 
                 <!-- 텍스트 뷰 -->
                 <TextView
@@ -315,11 +321,12 @@
                     android:textSize="18sp" />
 
                 <ImageView
+                    android:id="@+id/dayimage6"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:layout_weight="1"
                     android:scaleType="fitXY"
-                    android:src="@drawable/windy_icon" />
+                    android:src="@drawable/loading_logo" />
 
                 <!-- 텍스트 뷰 -->
                 <TextView
@@ -350,11 +357,12 @@
                     android:textSize="18sp" />
 
                 <ImageView
+                    android:id="@+id/dayimage7"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:layout_weight="1"
                     android:scaleType="fitXY"
-                    android:src="@drawable/windy_icon" />
+                    android:src="@drawable/loading_logo" />
 
                 <!-- 텍스트 뷰 -->
                 <TextView
@@ -418,7 +426,7 @@
                     android:layout_height="52dp"
                     android:layout_weight="1"
                     android:scaleType="fitXY"
-                    android:src="@drawable/windy_icon" />
+                    android:src="@drawable/loading_logo" />
 
                 <!-- 텍스트 뷰 -->
                 <TextView
@@ -461,7 +469,7 @@
                     android:layout_height="52dp"
                     android:layout_weight="1"
                     android:scaleType="fitXY"
-                    android:src="@drawable/windy_icon" />
+                    android:src="@drawable/loading_logo" />
 
                 <!-- 텍스트 뷰 -->
                 <TextView
@@ -499,14 +507,14 @@
                     android:textAlignment="center"
                     android:textSize="18sp" />
 
+                <!-- 텍스트 뷰 -->
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:layout_weight="1"
                     android:scaleType="fitXY"
-                    android:src="@drawable/windy_icon" />
+                    android:src="@drawable/loading_logo" />
 
-                <!-- 텍스트 뷰 -->
                 <TextView
                     android:id="@+id/weektem3"
                     android:layout_width="80dp"
@@ -546,7 +554,7 @@
                     android:layout_height="52dp"
                     android:layout_weight="1"
                     android:scaleType="fitXY"
-                    android:src="@drawable/windy_icon" />
+                    android:src="@drawable/loading_logo" />
 
                 <!-- 텍스트 뷰 -->
                 <TextView
@@ -589,7 +597,7 @@
                     android:layout_height="52dp"
                     android:layout_weight="1"
                     android:scaleType="fitXY"
-                    android:src="@drawable/windy_icon" />
+                    android:src="@drawable/loading_logo" />
 
                 <TextView
                     android:id="@+id/weektem5"
@@ -630,7 +638,7 @@
                     android:layout_height="52dp"
                     android:layout_weight="1"
                     android:scaleType="fitXY"
-                    android:src="@drawable/windy_icon" />
+                    android:src="@drawable/loading_logo" />
 
                 <!-- 텍스트 뷰 -->
                 <TextView

@@ -1,10 +1,14 @@
 package com.example.weatherproject;
 
-import com.example.api.*;
+import com.example.api1.*;
+import com.example.api2.NowWeatherImage;
+import com.example.api2.TodayWeatherImage;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -31,39 +35,59 @@ import java.util.concurrent.Future;
 
 public class MainActivity extends AppCompatActivity {
 
-    private NowWeather nowWeather;
-    private TodayWeather todayWeather;
-    private WeekTem12 weektem12;
-    private WeekTem37 weektem37;
-    private WeekP12 weekp12;
-    private WeekP37 weekp37;
-
+    //api1
+    private NowWeatherText nowWeathertext;
+    private TodayWeatherText todayWeathertext;
+    private WeekTem12Text weektem12text;
+    private WeekTem37Text weektem37text;
+    private WeekP12Text weekp12text;
+    private WeekP37Text weekp37text;
+    //api2
+    private NowWeatherImage nowweatherimage;
+    private TodayWeatherImage todayweatherimage;
     TextView cityName;
-    private ExecutorService executorService;
-    public int selectedPosition = 0;
 
      private int nx=60;
      private int ny=126;
      private String regId="11B10101";
-
+    private void api1(int nx, int ny, String regId){
+        TodayNow today = new TodayNow();
+        exToday extoday = new exToday();
+        Hour514 time5 = new Hour514();
+        Hour618 time6 = new Hour618();
+        nowWeathertext = new NowWeatherText(today.formattedDate1, today.formattedDate2, nx, ny);
+        todayWeathertext = new TodayWeatherText( extoday.getFormattedDate(), time5.getFormattedTime(),nx,ny);
+        weektem12text = new WeekTem12Text(extoday.getFormattedDate(), time5.getFormattedTime(),nx,ny);
+        weektem37text = new WeekTem37Text(extoday.getFormattedDate(), time6.getFormattedTime(),regId);
+        weekp12text = new WeekP12Text(extoday.getFormattedDate(), time5.getFormattedTime(),nx,ny);
+        weekp37text = new WeekP37Text(extoday.getFormattedDate(), time6.getFormattedTime(),regId);
+    }
+    private void api2(int nx ,int ny ,String regId){
+        TodayNow today = new TodayNow();
+        exToday extoday = new exToday();
+        Hour514 time5 = new Hour514();
+        Hour618 time6 = new Hour618();
+        nowweatherimage =new NowWeatherImage(extoday.getFormattedDate() , time5.getFormattedTime(),nx,ny);
+        todayweatherimage =new TodayWeatherImage(extoday.getFormattedDate() , time5.getFormattedTime(),nx,ny);
+    }
     String[] itmes = {"서울", "인천", "대전", "대구", "울산", "부산", "광주", "안양"};
-    private void fetchWeatherDataAndUpdateUI() {
+    private void fetchWeatherDataAndUpdateTextUI() {
         ExecutorService executor = Executors.newFixedThreadPool(6); // Create a thread pool with 6 threads
 
-        Callable<String> nowWeatherTask = nowWeather::fetchWeatherData;
-        Callable<String> todayWeatherTask = todayWeather::fetchWeatherData;
-        Callable<String> weekWeather12Task = weektem12::fetchWeatherData;
-        Callable<String> weekWeather37Task = weektem37::fetchWeatherData;
-        Callable<String> weekPercent12Task = weekp12::fetchWeatherData;
-        Callable<String> weekPercent37Task = weekp37::fetchWeatherData;
+        Callable<String> nowWeathertextTask = nowWeathertext::fetchWeatherData;
+        Callable<String> todayWeathertextTask = todayWeathertext::fetchWeatherData;
+        Callable<String> weekWeather12textTask = weektem12text::fetchWeatherData;
+        Callable<String> weekWeather37textTask = weektem37text::fetchWeatherData;
+        Callable<String> weekPercent12textTask = weekp12text::fetchWeatherData;
+        Callable<String> weekPercent37textTask = weekp37text::fetchWeatherData;
 
         List<Callable<String>> taskList = Arrays.asList(
-                nowWeatherTask,
-                todayWeatherTask,
-                weekWeather12Task,
-                weekWeather37Task,
-                weekPercent12Task,
-                weekPercent37Task
+                nowWeathertextTask,
+                todayWeathertextTask,
+                weekWeather12textTask,
+                weekWeather37textTask,
+                weekPercent12textTask,
+                weekPercent37textTask
         );
 
         new Thread(() -> {
@@ -71,22 +95,22 @@ public class MainActivity extends AppCompatActivity {
                 List<Future<String>> futures = executor.invokeAll(taskList);
 
                 // Extract results from futures
-                String nowweatherData = futures.get(0).get();
-                String todayweatherData = futures.get(1).get();
-                String weekweatherData12 = futures.get(2).get();
-                String weekweatherData37 = futures.get(3).get();
-                String weekPercentData12 = futures.get(4).get();
-                String weekPercentData37 = futures.get(5).get();
+                String nowweathertextData = futures.get(0).get();
+                String todayweathertextData = futures.get(1).get();
+                String weekweathertextData12 = futures.get(2).get();
+                String weekweathertextData37 = futures.get(3).get();
+                String weekPercenttextData12 = futures.get(4).get();
+                String weekPercenttextData37 = futures.get(5).get();
 
-                String[] todayweatherDataArray = todayweatherData.split("\n");
-                String[] weatherDataArray12 = weekweatherData12.split("\n");
-                String[] weatherDataArray37 = weekweatherData37.split("\n");
-                String[] PercentDataArray12 = weekPercentData12.split("\n");
-                String[] PercentDataArray37 = weekPercentData37.split("\n");
+                String[] todayweatherDataArray = todayweathertextData.split("\n");
+                String[] weatherDataArray12 = weekweathertextData12.split("\n");
+                String[] weatherDataArray37 = weekweathertextData37.split("\n");
+                String[] PercentDataArray12 = weekPercenttextData12.split("\n");
+                String[] PercentDataArray37 = weekPercenttextData37.split("\n");
 
                 runOnUiThread(() -> {
                     TextView nowTemTextView = findViewById(R.id.nowTem);
-                    nowTemTextView.setText(nowweatherData);
+                    nowTemTextView.setText(nowweathertextData);
 
                     for (int i = 0; i < 7; i++) {
                         int textViewId = getResources().getIdentifier("daytem" + (i + 1), "id", getPackageName());
@@ -131,6 +155,81 @@ public class MainActivity extends AppCompatActivity {
         }).start();
     }
 
+    private void fetchWeatherDataAndUpdateImageUI() {
+        new Thread(() -> {
+            int nowWeatherValue = 0; // NowWeatherImage 객체에서 반환된 값을 저장할 변수
+            int todayWeatherValue =0;
+            try {
+                nowWeatherValue = nowweatherimage.fetchWeatherData();
+                todayWeatherValue =todayweatherimage.fetchWeatherData();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            int finalnowWeatherValue = nowWeatherValue;
+            int finaltodayWeatherValue = todayWeatherValue;
+            runOnUiThread(() -> {
+                ImageView nowTemiconImageView = findViewById(R.id.NowWeatherIcon);
+                ImageView nowTembackgroundImageView = findViewById(R.id.nowTemBackGround);
+
+                // weatherValue 값에 따라 이미지 설정
+                switch (finalnowWeatherValue) {
+                    case 1:
+                        nowTemiconImageView.setImageResource(R.drawable.sunny_icon);
+                        nowTembackgroundImageView.setImageResource(R.drawable.sunny);// 맑음
+                        break;
+                    case 2:
+                        nowTemiconImageView.setImageResource(R.drawable.cloud_icon);
+                        nowTembackgroundImageView.setImageResource(R.drawable.cloud);// 구름 많음
+                        break;
+                    case 3:
+                        nowTemiconImageView.setImageResource(R.drawable.cloudy_icon);
+                        nowTembackgroundImageView.setImageResource(R.drawable.cloudy);// 흐림
+                        break;
+                    case 4:
+                        nowTemiconImageView.setImageResource(R.drawable.rainy_icon);
+                        nowTembackgroundImageView.setImageResource(R.drawable.rain);// 비
+                        break;
+                    case 5:
+                        nowTemiconImageView.setImageResource(R.drawable.snowfall_icon);
+                        nowTembackgroundImageView.setImageResource(R.drawable.snow);// 눈
+                        break;
+                    default:
+                        nowTemiconImageView.setImageResource(R.drawable.loading_logo);
+                        nowTembackgroundImageView.setImageResource(R.drawable.loading_logo);// 기본 이미지
+                        break;
+                }
+
+                for (int i = 1; i <= 7; i++) {
+                    int ImageViewId = getResources().getIdentifier("dayimage" + i, "id", getPackageName());
+                    ImageView dayImageView = findViewById(ImageViewId);
+
+                    switch (finaltodayWeatherValue) {
+                        case 1:
+                            dayImageView.setImageResource(R.drawable.sunny_icon); // 맑음
+                            break;
+                        case 2:
+                            dayImageView.setImageResource(R.drawable.cloud_icon); // 구름 많음
+                            break;
+                        case 3:
+                            dayImageView.setImageResource(R.drawable.cloudy_icon); // 흐림
+                            break;
+                        case 4:
+                            dayImageView.setImageResource(R.drawable.rainy_icon); // 비
+                            break;
+                        case 5:
+                            dayImageView.setImageResource(R.drawable.snowfall_icon); // 눈
+                            break;
+                        default:
+                            dayImageView.setImageResource(R.drawable.loading_logo); // 기본 이미지
+                            break;
+                    }
+                }
+            });
+        }).start();
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -157,6 +256,7 @@ public class MainActivity extends AppCompatActivity {
         // 현재 시간 가져오기
         Calendar calendar24 = Calendar.getInstance();
         SimpleDateFormat dateFormat24 = new SimpleDateFormat("HH", Locale.KOREA);
+        calendar24.add(Calendar.HOUR_OF_DAY, 1);
         String currentTime24 = dateFormat24.format(calendar24.getTime());
 
         // time241부터 time247까지의 TextView를 반복문으로 설정
@@ -214,97 +314,73 @@ public class MainActivity extends AppCompatActivity {
                         nx = 60;
                         ny = 126;
                         regId = "11B10101";
-                        nowWeather = new NowWeather(today.formattedDate1, today.formattedDate2, nx, ny);
-                        todayWeather = new TodayWeather( extoday.getFormattedDate(), time5.getFormattedTime(), nx, ny);
-                        weektem12 = new WeekTem12(extoday.getFormattedDate(), time5.getFormattedTime(), nx, ny);
-                        weektem37 = new WeekTem37(extoday.getFormattedDate(), time6.getFormattedTime(), regId);
-                        weekp12 = new WeekP12(extoday.getFormattedDate(), time5.getFormattedTime(), nx, ny);
-                        weekp37 = new WeekP37(extoday.getFormattedDate(), time6.getFormattedTime(), regId);
-                        fetchWeatherDataAndUpdateUI();
+                        api1(nx,ny,regId);
+                        api2(nx,ny,regId);
+                        fetchWeatherDataAndUpdateTextUI();
+                        fetchWeatherDataAndUpdateImageUI();
                         break;
                     case 1: //인천
                         nx = 56;
                         ny = 126;
                         regId = "11B20201";
-                        nowWeather = new NowWeather(today.formattedDate1, today.formattedDate2, nx, ny);
-                        todayWeather = new TodayWeather( extoday.getFormattedDate(), time5.getFormattedTime(), nx, ny);
-                        weektem12 = new WeekTem12(extoday.getFormattedDate(), time5.getFormattedTime(), nx, ny);
-                        weektem37 = new WeekTem37(extoday.getFormattedDate(), time6.getFormattedTime(), regId);
-                        weekp12 = new WeekP12(extoday.getFormattedDate(), time5.getFormattedTime(), nx, ny);
-                        weekp37 = new WeekP37(extoday.getFormattedDate(), time6.getFormattedTime(), regId);
-                        fetchWeatherDataAndUpdateUI();
+                        api1(nx,ny,regId);
+                        api2(nx,ny,regId);
+                        fetchWeatherDataAndUpdateTextUI();
+                        fetchWeatherDataAndUpdateImageUI();
                         break;
                     case 2: //대전
                         nx = 67;
                         ny = 100;
                         regId = "11C20401";
-                        nowWeather = new NowWeather(today.formattedDate1, today.formattedDate2, nx, ny);
-                        todayWeather = new TodayWeather( extoday.getFormattedDate(), time5.getFormattedTime(), nx, ny);
-                        weektem12 = new WeekTem12(extoday.getFormattedDate(), time5.getFormattedTime(), nx, ny);
-                        weektem37 = new WeekTem37(extoday.getFormattedDate(), time6.getFormattedTime(), regId);
-                        weekp12 = new WeekP12(extoday.getFormattedDate(), time5.getFormattedTime(), nx, ny);
-                        weekp37 = new WeekP37(extoday.getFormattedDate(), time6.getFormattedTime(), regId);
-                        fetchWeatherDataAndUpdateUI();
+                        api1(nx,ny,regId);
+                        api2(nx,ny,regId);
+                        fetchWeatherDataAndUpdateTextUI();
+                        fetchWeatherDataAndUpdateImageUI();
                         break;
                     case 3: //대구
                         nx = 89;
                         ny = 90;
                         regId = "11H10701";
-                        nowWeather = new NowWeather(today.formattedDate1, today.formattedDate2, nx, ny);
-                        todayWeather = new TodayWeather( extoday.getFormattedDate(), time5.getFormattedTime(), nx, ny);
-                        weektem12 = new WeekTem12(extoday.getFormattedDate(), time5.getFormattedTime(), nx, ny);
-                        weektem37 = new WeekTem37(extoday.getFormattedDate(), time6.getFormattedTime(), regId);
-                        weekp12 = new WeekP12(extoday.getFormattedDate(), time5.getFormattedTime(), nx, ny);
-                        weekp37 = new WeekP37(extoday.getFormattedDate(), time6.getFormattedTime(), regId);
-                        fetchWeatherDataAndUpdateUI();
+                        api1(nx,ny,regId);
+                        api2(nx,ny,regId);
+                        fetchWeatherDataAndUpdateTextUI();
+                        fetchWeatherDataAndUpdateImageUI();
                         break;
                     case 4: //울산
                         nx = 102;
                         ny = 84;
                         regId = "11H20101";
-                        nowWeather = new NowWeather(today.formattedDate1, today.formattedDate2, nx, ny);
-                        todayWeather = new TodayWeather( extoday.getFormattedDate(), time5.getFormattedTime(), nx, ny);
-                        weektem12 = new WeekTem12(extoday.getFormattedDate(), time5.getFormattedTime(), nx, ny);
-                        weektem37 = new WeekTem37(extoday.getFormattedDate(), time6.getFormattedTime(), regId);
-                        weekp12 = new WeekP12(extoday.getFormattedDate(), time5.getFormattedTime(), nx, ny);
-                        weekp37 = new WeekP37(extoday.getFormattedDate(), time6.getFormattedTime(), regId);
-                        fetchWeatherDataAndUpdateUI();
+                        api1(nx,ny,regId);
+                        api2(nx,ny,regId);
+                        fetchWeatherDataAndUpdateTextUI();
+                        fetchWeatherDataAndUpdateImageUI();
                         break;
                     case 5: //부산
                         nx = 98;
                         ny = 76;
                         regId = "11H20201";
-                        nowWeather = new NowWeather(today.formattedDate1, today.formattedDate2, nx, ny);
-                        todayWeather = new TodayWeather( extoday.getFormattedDate(), time5.getFormattedTime(), nx, ny);
-                        weektem12 = new WeekTem12(extoday.getFormattedDate(), time5.getFormattedTime(), nx, ny);
-                        weektem37 = new WeekTem37(extoday.getFormattedDate(), time6.getFormattedTime(), regId);
-                        weekp12 = new WeekP12(extoday.getFormattedDate(), time5.getFormattedTime(), nx, ny);
-                        weekp37 = new WeekP37(extoday.getFormattedDate(), time6.getFormattedTime(), regId);
-                        fetchWeatherDataAndUpdateUI();
+                        api1(nx,ny,regId);
+                        api2(nx,ny,regId);
+                        fetchWeatherDataAndUpdateTextUI();
+                        fetchWeatherDataAndUpdateImageUI();
                         break;
                     case 6: //광주
                         nx = 58;
                         ny = 74;
                         regId = "11B20702";
-                        nowWeather = new NowWeather(today.formattedDate1, today.formattedDate2, nx, ny);
-                        todayWeather = new TodayWeather( extoday.getFormattedDate(), time5.getFormattedTime(), nx, ny);
-                        weektem12 = new WeekTem12(extoday.getFormattedDate(), time5.getFormattedTime(), nx, ny);
-                        weektem37 = new WeekTem37(extoday.getFormattedDate(), time6.getFormattedTime(), regId);
-                        weekp12 = new WeekP12(extoday.getFormattedDate(), time5.getFormattedTime(), nx, ny);
-                        weekp37 = new WeekP37(extoday.getFormattedDate(), time6.getFormattedTime(), regId);
-                        fetchWeatherDataAndUpdateUI();
+                        api1(nx,ny,regId);
+                        api2(nx,ny,regId);
+                        fetchWeatherDataAndUpdateTextUI();
+                        fetchWeatherDataAndUpdateImageUI();
                         break;
                     case 7: //안양
                         nx = 59;
                         ny = 123;
                         regId = "11B20602";
-                        nowWeather = new NowWeather(today.formattedDate1, today.formattedDate2, nx, ny);
-                        todayWeather = new TodayWeather( extoday.getFormattedDate(), time5.getFormattedTime(), nx, ny);
-                        weektem12 = new WeekTem12(extoday.getFormattedDate(), time5.getFormattedTime(), nx, ny);
-                        weektem37 = new WeekTem37(extoday.getFormattedDate(), time6.getFormattedTime(), regId);
-                        weekp12 = new WeekP12(extoday.getFormattedDate(), time5.getFormattedTime(), nx, ny);
-                        weekp37 = new WeekP37(extoday.getFormattedDate(), time6.getFormattedTime(), regId);
-                        fetchWeatherDataAndUpdateUI();
+                        api1(nx,ny,regId);
+                        api2(nx,ny,regId);
+                        fetchWeatherDataAndUpdateTextUI();
+                        fetchWeatherDataAndUpdateImageUI();
                         break;
                 }
             }
