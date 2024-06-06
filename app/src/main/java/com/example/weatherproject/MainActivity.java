@@ -7,7 +7,6 @@ import com.example.api2.Week1Image;
 import com.example.api2.Week2Image;
 import com.example.api2.Week37Image;
 
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -22,7 +21,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Locale;
 
 
@@ -30,7 +28,6 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -38,7 +35,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
-import android.graphics.Bitmap;
 
 
 
@@ -63,20 +59,6 @@ public class MainActivity extends AppCompatActivity {
      private int ny=126;
      private String regId1="11B10101";
      private String regId2="11B10101";
-    private Map<Integer, Bitmap> imageCache = new HashMap<>();
-    private void preloadImages() {
-        imageCache.put(R.drawable.sunny_icon, BitmapFactory.decodeResource(getResources(), R.drawable.sunny_icon));
-        imageCache.put(R.drawable.sunny, BitmapFactory.decodeResource(getResources(), R.drawable.sunny));
-        imageCache.put(R.drawable.cloud_icon, BitmapFactory.decodeResource(getResources(), R.drawable.cloud_icon));
-        imageCache.put(R.drawable.cloud, BitmapFactory.decodeResource(getResources(), R.drawable.cloud));
-        imageCache.put(R.drawable.cloudy_icon, BitmapFactory.decodeResource(getResources(), R.drawable.cloudy_icon));
-        imageCache.put(R.drawable.cloudy, BitmapFactory.decodeResource(getResources(), R.drawable.cloudy));
-        imageCache.put(R.drawable.rainy_icon, BitmapFactory.decodeResource(getResources(), R.drawable.rainy_icon));
-        imageCache.put(R.drawable.rain, BitmapFactory.decodeResource(getResources(), R.drawable.rain));
-        imageCache.put(R.drawable.snowfall_icon, BitmapFactory.decodeResource(getResources(), R.drawable.snowfall_icon));
-        imageCache.put(R.drawable.snow, BitmapFactory.decodeResource(getResources(), R.drawable.snow));
-        imageCache.put(R.drawable.loading_logo, BitmapFactory.decodeResource(getResources(), R.drawable.loading_logo));
-    }
     private void api1(int nx, int ny, String regId1,String regId2){
         TodayNow today = new TodayNow();
         exToday extoday = new exToday();
@@ -341,7 +323,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        preloadImages();
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
