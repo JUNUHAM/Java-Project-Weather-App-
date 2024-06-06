@@ -3,7 +3,11 @@ package com.example.weatherproject;
 import com.example.api1.*;
 import com.example.api2.NowWeatherImage;
 import com.example.api2.TodayWeatherImage;
+import com.example.api2.Week1Image;
+import com.example.api2.Week2Image;
+import com.example.api2.Week37Image;
 
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,6 +21,8 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Locale;
 
 
@@ -24,13 +30,16 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Callable;
-
 import java.util.concurrent.Future;
+import android.graphics.Bitmap;
+
 
 
 public class MainActivity extends AppCompatActivity {
@@ -45,12 +54,30 @@ public class MainActivity extends AppCompatActivity {
     //api2
     private NowWeatherImage nowweatherimage;
     private TodayWeatherImage todayweatherimage;
+    private Week1Image week1image;
+    private Week2Image week2image;
+    private Week37Image week37image;
     TextView cityName;
 
      private int nx=60;
      private int ny=126;
-     private String regId="11B10101";
-    private void api1(int nx, int ny, String regId){
+     private String regId1="11B10101";
+     private String regId2="11B10101";
+    private Map<Integer, Bitmap> imageCache = new HashMap<>();
+    private void preloadImages() {
+        imageCache.put(R.drawable.sunny_icon, BitmapFactory.decodeResource(getResources(), R.drawable.sunny_icon));
+        imageCache.put(R.drawable.sunny, BitmapFactory.decodeResource(getResources(), R.drawable.sunny));
+        imageCache.put(R.drawable.cloud_icon, BitmapFactory.decodeResource(getResources(), R.drawable.cloud_icon));
+        imageCache.put(R.drawable.cloud, BitmapFactory.decodeResource(getResources(), R.drawable.cloud));
+        imageCache.put(R.drawable.cloudy_icon, BitmapFactory.decodeResource(getResources(), R.drawable.cloudy_icon));
+        imageCache.put(R.drawable.cloudy, BitmapFactory.decodeResource(getResources(), R.drawable.cloudy));
+        imageCache.put(R.drawable.rainy_icon, BitmapFactory.decodeResource(getResources(), R.drawable.rainy_icon));
+        imageCache.put(R.drawable.rain, BitmapFactory.decodeResource(getResources(), R.drawable.rain));
+        imageCache.put(R.drawable.snowfall_icon, BitmapFactory.decodeResource(getResources(), R.drawable.snowfall_icon));
+        imageCache.put(R.drawable.snow, BitmapFactory.decodeResource(getResources(), R.drawable.snow));
+        imageCache.put(R.drawable.loading_logo, BitmapFactory.decodeResource(getResources(), R.drawable.loading_logo));
+    }
+    private void api1(int nx, int ny, String regId1,String regId2){
         TodayNow today = new TodayNow();
         exToday extoday = new exToday();
         Hour514 time5 = new Hour514();
@@ -58,17 +85,19 @@ public class MainActivity extends AppCompatActivity {
         nowWeathertext = new NowWeatherText(today.formattedDate1, today.formattedDate2, nx, ny);
         todayWeathertext = new TodayWeatherText( extoday.getFormattedDate(), time5.getFormattedTime(),nx,ny);
         weektem12text = new WeekTem12Text(extoday.getFormattedDate(), time5.getFormattedTime(),nx,ny);
-        weektem37text = new WeekTem37Text(extoday.getFormattedDate(), time6.getFormattedTime(),regId);
+        weektem37text = new WeekTem37Text(extoday.getFormattedDate(), time6.getFormattedTime(),regId1);
         weekp12text = new WeekP12Text(extoday.getFormattedDate(), time5.getFormattedTime(),nx,ny);
-        weekp37text = new WeekP37Text(extoday.getFormattedDate(), time6.getFormattedTime(),regId);
+        weekp37text = new WeekP37Text(extoday.getFormattedDate(), time6.getFormattedTime(),regId2);
     }
-    private void api2(int nx ,int ny ,String regId){
-        TodayNow today = new TodayNow();
+    private void api2(int nx ,int ny ,String regId2){
         exToday extoday = new exToday();
         Hour514 time5 = new Hour514();
         Hour618 time6 = new Hour618();
         nowweatherimage =new NowWeatherImage(extoday.getFormattedDate() , time5.getFormattedTime(),nx,ny);
         todayweatherimage =new TodayWeatherImage(extoday.getFormattedDate() , time5.getFormattedTime(),nx,ny);
+        week1image = new Week1Image(extoday.getFormattedDate(),time5.getFormattedTime(),nx,ny);
+        week2image = new Week2Image(extoday.getFormattedDate(),time5.getFormattedTime(),nx,ny);
+        week37image =new Week37Image(extoday.getFormattedDate(), time6.getFormattedTime(),regId2);
     }
     String[] itmes = {"서울", "인천", "대전", "대구", "울산", "부산", "광주", "안양"};
     private void fetchWeatherDataAndUpdateTextUI() {
@@ -123,28 +152,28 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
 
-                    for (int i = 1; i <= 2; i++) {
-                        int textViewId = getResources().getIdentifier("weektem" + i, "id", getPackageName());
+                    for (int i = 0; i <= 1; i++) {
+                        int textViewId = getResources().getIdentifier("weektem" + (i+1), "id", getPackageName());
                         TextView weekTemTextView12 = findViewById(textViewId);
-                        weekTemTextView12.setText(weatherDataArray12[i - 1]);
+                        weekTemTextView12.setText(weatherDataArray12[i]);
                     }
 
-                    for (int i = 3; i <= 6; i++) {
-                        int textViewId = getResources().getIdentifier("weektem" + i, "id", getPackageName());
+                    for (int i = 0; i <= 3; i++) {
+                        int textViewId = getResources().getIdentifier("weektem" + (i+3), "id", getPackageName());
                         TextView weekTemTextView37 = findViewById(textViewId);
-                        weekTemTextView37.setText(weatherDataArray37[i - 3]);
+                        weekTemTextView37.setText(weatherDataArray37[i]);
                     }
 
-                    for (int i = 1; i <= 2; i++) {
-                        int textViewId = getResources().getIdentifier("weekp" + i, "id", getPackageName());
+                    for (int i = 0; i <= 1; i++) {
+                        int textViewId = getResources().getIdentifier("weekp" + (i+1), "id", getPackageName());
                         TextView weekperTextView12 = findViewById(textViewId);
-                        weekperTextView12.setText(PercentDataArray12[i - 1]);
+                        weekperTextView12.setText(PercentDataArray12[i]);
                     }
 
-                    for (int i = 3; i <= 6; i++) {
-                        int textViewId = getResources().getIdentifier("weekp" + i, "id", getPackageName());
+                    for (int i = 0; i <= 3; i++) {
+                        int textViewId = getResources().getIdentifier("weekp" + (i+3), "id", getPackageName());
                         TextView weekperTextView37 = findViewById(textViewId);
-                        weekperTextView37.setText(PercentDataArray37[i - 3]);
+                        weekperTextView37.setText(PercentDataArray37[i]);
                     }
                 });
             } catch (Exception e) {
@@ -156,77 +185,154 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void fetchWeatherDataAndUpdateImageUI() {
-        new Thread(() -> {
+        CompletableFuture.runAsync(() -> {
             int nowWeatherValue = 0; // NowWeatherImage 객체에서 반환된 값을 저장할 변수
-            int todayWeatherValue =0;
+            int todayWeatherValue = 0;
+            int tomorrowValue = 0;
+            int day3value = 0;
+            List<Integer> otherdayvalue = Collections.singletonList(0);
             try {
                 nowWeatherValue = nowweatherimage.fetchWeatherData();
-                todayWeatherValue =todayweatherimage.fetchWeatherData();
+                todayWeatherValue = todayweatherimage.fetchWeatherData();
+                tomorrowValue = week1image.fetchWeatherData();
+                day3value = week2image.fetchWeatherData();
+                otherdayvalue = week37image.fetchWeatherData();
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
-            int finalnowWeatherValue = nowWeatherValue;
-            int finaltodayWeatherValue = todayWeatherValue;
-            runOnUiThread(() -> {
-                ImageView nowTemiconImageView = findViewById(R.id.NowWeatherIcon);
-                ImageView nowTembackgroundImageView = findViewById(R.id.nowTemBackGround);
+            int finalNowWeatherValue = nowWeatherValue;
+            int finalTodayWeatherValue = todayWeatherValue;
+            int finalTomorrowValue = tomorrowValue;
+            int finalDay3Value = day3value;
+            List<Integer> finalOtherdayValue = otherdayvalue;
+            runOnUiThread(() -> updateImages(finalNowWeatherValue, finalTodayWeatherValue, finalTomorrowValue, finalDay3Value, finalOtherdayValue));
+        });
+    }
 
-                // weatherValue 값에 따라 이미지 설정
-                switch (finalnowWeatherValue) {
-                    case 1:
-                        nowTemiconImageView.setImageResource(R.drawable.sunny_icon);
-                        nowTembackgroundImageView.setImageResource(R.drawable.sunny);// 맑음
-                        break;
-                    case 2:
-                        nowTemiconImageView.setImageResource(R.drawable.cloud_icon);
-                        nowTembackgroundImageView.setImageResource(R.drawable.cloud);// 구름 많음
-                        break;
-                    case 3:
-                        nowTemiconImageView.setImageResource(R.drawable.cloudy_icon);
-                        nowTembackgroundImageView.setImageResource(R.drawable.cloudy);// 흐림
-                        break;
-                    case 4:
-                        nowTemiconImageView.setImageResource(R.drawable.rainy_icon);
-                        nowTembackgroundImageView.setImageResource(R.drawable.rain);// 비
-                        break;
-                    case 5:
-                        nowTemiconImageView.setImageResource(R.drawable.snowfall_icon);
-                        nowTembackgroundImageView.setImageResource(R.drawable.snow);// 눈
-                        break;
-                    default:
-                        nowTemiconImageView.setImageResource(R.drawable.loading_logo);
-                        nowTembackgroundImageView.setImageResource(R.drawable.loading_logo);// 기본 이미지
-                        break;
-                }
+    private void updateImages(int nowWeatherValue, int todayWeatherValue, int tomorrowValue, int day3Value, List<Integer> otherdayValue) {
+        ImageView nowTemiconImageView = findViewById(R.id.NowWeatherIcon);
+        ImageView nowTembackgroundImageView = findViewById(R.id.nowTemBackGround);
 
-                for (int i = 1; i <= 7; i++) {
-                    int ImageViewId = getResources().getIdentifier("dayimage" + i, "id", getPackageName());
-                    ImageView dayImageView = findViewById(ImageViewId);
+        // weatherValue 값에 따라 이미지 설정
+        switch (nowWeatherValue) {
+            case 1:
+                nowTemiconImageView.setImageResource(R.drawable.sunny_icon);
+                nowTembackgroundImageView.setImageResource(R.drawable.sunny);// 맑음
+                break;
+            case 2:
+                nowTemiconImageView.setImageResource(R.drawable.cloud_icon);
+                nowTembackgroundImageView.setImageResource(R.drawable.cloud);// 구름 많음
+                break;
+            case 3:
+                nowTemiconImageView.setImageResource(R.drawable.cloudy_icon);
+                nowTembackgroundImageView.setImageResource(R.drawable.cloudy);// 흐림
+                break;
+            case 4:
+                nowTemiconImageView.setImageResource(R.drawable.rainy_icon);
+                nowTembackgroundImageView.setImageResource(R.drawable.rain);// 비
+                break;
+            case 5:
+                nowTemiconImageView.setImageResource(R.drawable.snowfall_icon);
+                nowTembackgroundImageView.setImageResource(R.drawable.snow);// 눈
+                break;
+            default:
+                nowTemiconImageView.setImageResource(R.drawable.loading_logo);
+                nowTembackgroundImageView.setImageResource(R.drawable.loading_logo);// 기본 이미지
+                break;
+        }
 
-                    switch (finaltodayWeatherValue) {
-                        case 1:
-                            dayImageView.setImageResource(R.drawable.sunny_icon); // 맑음
-                            break;
-                        case 2:
-                            dayImageView.setImageResource(R.drawable.cloud_icon); // 구름 많음
-                            break;
-                        case 3:
-                            dayImageView.setImageResource(R.drawable.cloudy_icon); // 흐림
-                            break;
-                        case 4:
-                            dayImageView.setImageResource(R.drawable.rainy_icon); // 비
-                            break;
-                        case 5:
-                            dayImageView.setImageResource(R.drawable.snowfall_icon); // 눈
-                            break;
-                        default:
-                            dayImageView.setImageResource(R.drawable.loading_logo); // 기본 이미지
-                            break;
-                    }
-                }
-            });
-        }).start();
+        for (int i = 1; i <= 7; i++) {
+            int ImageViewId = getResources().getIdentifier("dayimage" + i, "id", getPackageName());
+            ImageView dayImageView = findViewById(ImageViewId);
+
+            switch (todayWeatherValue) {
+                case 1:
+                    dayImageView.setImageResource(R.drawable.sunny_icon); // 맑음
+                    break;
+                case 2:
+                    dayImageView.setImageResource(R.drawable.cloud_icon); // 구름 많음
+                    break;
+                case 3:
+                    dayImageView.setImageResource(R.drawable.cloudy_icon); // 흐림
+                    break;
+                case 4:
+                    dayImageView.setImageResource(R.drawable.rainy_icon); // 비
+                    break;
+                case 5:
+                    dayImageView.setImageResource(R.drawable.snowfall_icon); // 눈
+                    break;
+                default:
+                    dayImageView.setImageResource(R.drawable.loading_logo); // 기본 이미지
+                    break;
+            }
+        }
+
+        ImageView day1ImageView = findViewById(R.id.weekimage1);
+        switch (tomorrowValue) {
+            case 1:
+                day1ImageView.setImageResource(R.drawable.sunny_icon); // 맑음
+                break;
+            case 2:
+                day1ImageView.setImageResource(R.drawable.cloud_icon); // 구름 많음
+                break;
+            case 3:
+                day1ImageView.setImageResource(R.drawable.cloudy_icon); // 흐림
+                break;
+            case 4:
+                day1ImageView.setImageResource(R.drawable.rainy_icon); // 비
+                break;
+            case 5:
+                day1ImageView.setImageResource(R.drawable.snowfall_icon); // 눈
+                break;
+            default:
+                day1ImageView.setImageResource(R.drawable.loading_logo); // 기본 이미지
+                break;
+        }
+
+        ImageView day2ImageView = findViewById(R.id.weekimage2);
+        switch (day3Value) {
+            case 1:
+                day2ImageView.setImageResource(R.drawable.sunny_icon); // 맑음
+                break;
+            case 2:
+                day2ImageView.setImageResource(R.drawable.cloud_icon); // 구름 많음
+                break;
+            case 3:
+                day2ImageView.setImageResource(R.drawable.cloudy_icon); // 흐림
+                break;
+            case 4:
+                day2ImageView.setImageResource(R.drawable.rainy_icon); // 비
+                break;
+            case 5:
+                day2ImageView.setImageResource(R.drawable.snowfall_icon); // 눈
+                break;
+            default:
+                day2ImageView.setImageResource(R.drawable.loading_logo); // 기본 이미지
+                break;
+        }
+
+        for (int i = 0; i <= 3; i++) {
+            int ImageViewId = getResources().getIdentifier("weekimage" + (i + 3), "id", getPackageName());
+            ImageView dayImageView = findViewById(ImageViewId);
+
+            int weatherValue = otherdayValue.get(i); // 리스트에서 값을 가져옴
+
+            if (weatherValue == 1) {
+                dayImageView.setImageResource(R.drawable.sunny_icon); // 맑음
+            } else if (weatherValue == 2) {
+                dayImageView.setImageResource(R.drawable.cloud_icon); // 구름 많음
+            } else if (weatherValue == 3) {
+                dayImageView.setImageResource(R.drawable.cloudy_icon); // 흐림
+            } else if (weatherValue == 4) {
+                dayImageView.setImageResource(R.drawable.rainy_icon); // 비
+            } else if (weatherValue == 5) {
+                dayImageView.setImageResource(R.drawable.snowfall_icon); // 눈
+            } else {
+                dayImageView.setImageResource(R.drawable.loading_logo); // 기본 이미지
+            }
+        }
     }
 
 
@@ -235,6 +341,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+        preloadImages();
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -304,81 +411,85 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 cityName.setText(itmes[position]);
-                TodayNow today = new TodayNow();
-                exToday extoday = new exToday();
-                Hour514 time5 = new Hour514();
-                Hour618 time6 = new Hour618();
 
                 switch (position) {
                     case 0: //서울
                         nx = 60;
                         ny = 126;
-                        regId = "11B10101";
-                        api1(nx,ny,regId);
-                        api2(nx,ny,regId);
+                        regId1 = "11B10101";
+                        regId2 = "11B00000";
+                        api1(nx,ny,regId1,regId2);
+                        api2(nx,ny,regId2);
                         fetchWeatherDataAndUpdateTextUI();
                         fetchWeatherDataAndUpdateImageUI();
                         break;
                     case 1: //인천
                         nx = 56;
                         ny = 126;
-                        regId = "11B20201";
-                        api1(nx,ny,regId);
-                        api2(nx,ny,regId);
+                        regId1 = "11B20201";
+                        regId2 = "11B00000";
+                        api1(nx,ny,regId1,regId2);
+                        api2(nx,ny,regId2);
                         fetchWeatherDataAndUpdateTextUI();
                         fetchWeatherDataAndUpdateImageUI();
                         break;
                     case 2: //대전
                         nx = 67;
                         ny = 100;
-                        regId = "11C20401";
-                        api1(nx,ny,regId);
-                        api2(nx,ny,regId);
+                        regId1 = "11C20401";
+                        regId2 = "11C20000";
+                        api1(nx,ny,regId1,regId2);
+                        api2(nx,ny,regId2);
                         fetchWeatherDataAndUpdateTextUI();
                         fetchWeatherDataAndUpdateImageUI();
                         break;
                     case 3: //대구
                         nx = 89;
                         ny = 90;
-                        regId = "11H10701";
-                        api1(nx,ny,regId);
-                        api2(nx,ny,regId);
+                        regId1 = "11H10701";
+                        regId2 = "11H10000";
+                        api1(nx,ny,regId1,regId2);
+                        api2(nx,ny,regId2);
                         fetchWeatherDataAndUpdateTextUI();
                         fetchWeatherDataAndUpdateImageUI();
                         break;
                     case 4: //울산
                         nx = 102;
                         ny = 84;
-                        regId = "11H20101";
-                        api1(nx,ny,regId);
-                        api2(nx,ny,regId);
+                        regId1 = "11H20101";
+                        regId2 = "11H20000";
+                        api1(nx,ny,regId1,regId2);
+                        api2(nx,ny,regId2);
                         fetchWeatherDataAndUpdateTextUI();
                         fetchWeatherDataAndUpdateImageUI();
                         break;
                     case 5: //부산
                         nx = 98;
                         ny = 76;
-                        regId = "11H20201";
-                        api1(nx,ny,regId);
-                        api2(nx,ny,regId);
+                        regId1 = "11H20201";
+                        regId2 = "11H20000";
+                        api1(nx,ny,regId1,regId2);
+                        api2(nx,ny,regId2);
                         fetchWeatherDataAndUpdateTextUI();
                         fetchWeatherDataAndUpdateImageUI();
                         break;
                     case 6: //광주
                         nx = 58;
                         ny = 74;
-                        regId = "11B20702";
-                        api1(nx,ny,regId);
-                        api2(nx,ny,regId);
+                        regId1 = "11B20702";
+                        regId2 = "11F20000";
+                        api1(nx,ny,regId1,regId2);
+                        api2(nx,ny,regId2);
                         fetchWeatherDataAndUpdateTextUI();
                         fetchWeatherDataAndUpdateImageUI();
                         break;
                     case 7: //안양
                         nx = 59;
                         ny = 123;
-                        regId = "11B20602";
-                        api1(nx,ny,regId);
-                        api2(nx,ny,regId);
+                        regId1 = "11B20602";
+                        regId2 = "11B00000";
+                        api1(nx,ny,regId1,regId2);
+                        api2(nx,ny,regId2);
                         fetchWeatherDataAndUpdateTextUI();
                         fetchWeatherDataAndUpdateImageUI();
                         break;

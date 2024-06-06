@@ -37,9 +37,9 @@ public class WeekTem37Text {
         NodeList itemList = doc.getElementsByTagName("item");
         for (int i = 0; i < itemList.getLength(); i++) {
             Element item = (Element) itemList.item(i);
-            for (int j = 3; j <= 8; j++) {
-                String taMax = XmlHelper.getNodeTextContent(item.getElementsByTagName("taMax" + j).item(0));
-                String taMin = XmlHelper.getNodeTextContent(item.getElementsByTagName("taMin" + j).item(0));
+            for (int j = 0; j <= 3; j++) {
+                String taMax = XmlHelper.getNodeTextContent(item.getElementsByTagName("taMax" + (j+3)).item(0));
+                String taMin = XmlHelper.getNodeTextContent(item.getElementsByTagName("taMin" + (j+3)).item(0));
                 weatherDataBuilder.append(taMin).append("℃").append("/").append(taMax).append("℃").append("\n");
             }
         }

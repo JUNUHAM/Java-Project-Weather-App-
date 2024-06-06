@@ -422,6 +422,7 @@
                     android:textSize="18sp" />
 
                 <ImageView
+                    android:id="@+id/weekimage1"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:layout_weight="1"
@@ -465,6 +466,7 @@
                     android:textSize="18sp" />
 
                 <ImageView
+                    android:id="@+id/weekimage2"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:layout_weight="1"
@@ -509,6 +511,7 @@
 
                 <!-- 텍스트 뷰 -->
                 <ImageView
+                    android:id="@+id/weekimage3"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:layout_weight="1"
@@ -550,6 +553,7 @@
                     android:textSize="18sp" />
 
                 <ImageView
+                    android:id="@+id/weekimage4"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:layout_weight="1"
@@ -593,6 +597,7 @@
 
                 <!-- 텍스트 뷰 -->
                 <ImageView
+                    android:id="@+id/weekimage5"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:layout_weight="1"
@@ -634,6 +639,7 @@
                     android:textSize="18sp" />
 
                 <ImageView
+                    android:id="@+id/weekimage6"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:layout_weight="1"

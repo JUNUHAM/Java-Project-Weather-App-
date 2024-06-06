@@ -29,7 +29,6 @@ public class WeekP37Text {
                 + "&dataType=XML" 	//응답자료형식
                 + "&regId="+regId		//지점번호
                 + "&tmFc="+baseDate+baseTime; //발표시각
-
         // XML 데이터를 읽어오기
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
@@ -40,13 +39,9 @@ public class WeekP37Text {
         for (int i = 0; i < itemList.getLength(); i++) {
             Element item = (Element) itemList.item(i);
             //오전,오후 날씨 강수량
-            for (int j = 3; j <= 7; j++) {
-                LocalDate tomorrow = LocalDate.now();
-                LocalDate futureDate = tomorrow.plusDays(j);
-                String rnStAm = XmlHelper.getNodeTextContent(item.getElementsByTagName("rnSt" + j + "Am").item(0));
-                String wfAm = XmlHelper.getNodeTextContent(item.getElementsByTagName("wf" + j + "Am").item(0));
-                String rnStPm = XmlHelper.getNodeTextContent(item.getElementsByTagName("rnSt" + j + "Pm").item(0));
-                String wfPm = XmlHelper.getNodeTextContent(item.getElementsByTagName("wf" + j + "Pm").item(0));
+            for (int j = 0; j <= 3; j++) {
+                String rnStAm = XmlHelper.getNodeTextContent(item.getElementsByTagName("rnSt" + (j+3) + "Am").item(0));
+                String rnStPm = XmlHelper.getNodeTextContent(item.getElementsByTagName("rnSt" + (j+3) + "Pm").item(0));
 
                 weatherDataBuilder.append(rnStAm).append("%").append("/").append(rnStPm).append("%").append("\n");
             }
