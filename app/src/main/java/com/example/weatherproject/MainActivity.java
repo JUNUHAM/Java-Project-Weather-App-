@@ -167,29 +167,71 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void fetchWeatherDataAndUpdateImageUI() {
-        CompletableFuture.runAsync(() -> {
-            int nowWeatherValue = 0; // NowWeatherImage 객체에서 반환된 값을 저장할 변수
-            int todayWeatherValue = 0;
-            int tomorrowValue = 0;
-            int day3value = 0;
-            List<Integer> otherdayvalue = Collections.singletonList(0);
+        CompletableFuture<Integer> nowWeatherFuture = CompletableFuture.supplyAsync(() -> {
             try {
-                nowWeatherValue = nowweatherimage.fetchWeatherData();
-                todayWeatherValue = todayweatherimage.fetchWeatherData();
-                tomorrowValue = week1image.fetchWeatherData();
-                day3value = week2image.fetchWeatherData();
-                otherdayvalue = week37image.fetchWeatherData();
+                return nowweatherimage.fetchWeatherData();
+            } catch (Exception e) {
+                e.printStackTrace();
+                return 0; // 기본값
+            }
+        });
 
+        CompletableFuture<Integer> todayWeatherFuture = CompletableFuture.supplyAsync(() -> {
+            try {
+                return todayweatherimage.fetchWeatherData();
+            } catch (Exception e) {
+                e.printStackTrace();
+                return 0; // 기본값
+            }
+        });
+
+        CompletableFuture<Integer> tomorrowWeatherFuture = CompletableFuture.supplyAsync(() -> {
+            try {
+                return week1image.fetchWeatherData();
+            } catch (Exception e) {
+                e.printStackTrace();
+                return 0; // 기본값
+            }
+        });
+
+        CompletableFuture<Integer> day3WeatherFuture = CompletableFuture.supplyAsync(() -> {
+            try {
+                return week2image.fetchWeatherData();
+            } catch (Exception e) {
+                e.printStackTrace();
+                return 0; // 기본값
+            }
+        });
+
+        CompletableFuture<List<Integer>> otherDayWeatherFuture = CompletableFuture.supplyAsync(() -> {
+            try {
+                return week37image.fetchWeatherData();
+            } catch (Exception e) {
+                e.printStackTrace();
+                return Collections.singletonList(0); // 기본값
+            }
+        });
+
+        CompletableFuture<Void> allOf = CompletableFuture.allOf(
+                nowWeatherFuture,
+                todayWeatherFuture,
+                tomorrowWeatherFuture,
+                day3WeatherFuture,
+                otherDayWeatherFuture
+        );
+
+        allOf.thenRunAsync(() -> {
+            try {
+                int nowWeatherValue = nowWeatherFuture.get();
+                int todayWeatherValue = todayWeatherFuture.get();
+                int tomorrowValue = tomorrowWeatherFuture.get();
+                int day3value = day3WeatherFuture.get();
+                List<Integer> otherdayvalue = otherDayWeatherFuture.get();
+
+                runOnUiThread(() -> updateImages(nowWeatherValue, todayWeatherValue, tomorrowValue, day3value, otherdayvalue));
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-            int finalNowWeatherValue = nowWeatherValue;
-            int finalTodayWeatherValue = todayWeatherValue;
-            int finalTomorrowValue = tomorrowValue;
-            int finalDay3Value = day3value;
-            List<Integer> finalOtherdayValue = otherdayvalue;
-            runOnUiThread(() -> updateImages(finalNowWeatherValue, finalTodayWeatherValue, finalTomorrowValue, finalDay3Value, finalOtherdayValue));
         });
     }
 
