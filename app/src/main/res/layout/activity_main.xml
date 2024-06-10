@@ -12,7 +12,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/sunny" />
+        android:src="@drawable/sunny"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="-126dp" />
 
     <Spinner
         android:id="@+id/my_spinner"
@@ -22,6 +25,7 @@
         android:popupBackground="#5555"
         android:spinnerMode="dropdown"
         android:textAlignment="center"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -38,6 +42,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintVertical_bias="0.13"
         android:textSize="20dp"
+        android:textColor="@color/black"
         android:text="도시 선택"/>
 
     <View
@@ -64,6 +69,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/black"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.188" />
 
@@ -80,7 +86,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.272" />
+        app:layout_constraintVertical_bias="0.292" />
 
     <TextView
         android:id="@+id/nowTem"
@@ -89,6 +95,7 @@
         android:gravity="center"
         android:textAlignment="center"
         android:textSize="50sp"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -138,6 +145,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:textAlignment="center"
+                    android:textColor="@color/black"
                     android:textSize="18sp" />
 
                 <ImageView
@@ -156,6 +164,7 @@
                     android:gravity="center"
                     android:text="loading.."
                     android:textAlignment="center"
+                    android:textColor="@color/black"
                     android:textSize="18sp" />
             </LinearLayout>
 
@@ -174,6 +183,7 @@
                     android:gravity="center"
                     android:text=""
                     android:textAlignment="center"
+                    android:textColor="@color/black"
                     android:textSize="18sp" />
 
                 <ImageView
@@ -191,6 +201,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="loading.."
+                    android:textColor="@color/black"
                     android:textAlignment="center"
                     android:textSize="18sp" />
             </LinearLayout>
@@ -210,6 +221,7 @@
                     android:gravity="center"
                     android:text=""
                     android:textAlignment="center"
+                    android:textColor="@color/black"
                     android:textSize="18sp" />
 
                 <ImageView
@@ -227,6 +239,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="loading.."
+                    android:textColor="@color/black"
                     android:textAlignment="center"
                     android:textSize="18sp" />
             </LinearLayout>
@@ -246,6 +259,7 @@
                     android:gravity="center"
                     android:text=""
                     android:textAlignment="center"
+                    android:textColor="@color/black"
                     android:textSize="18sp" />
 
                 <ImageView
@@ -264,6 +278,7 @@
                     android:gravity="center"
                     android:text="loading.."
                     android:textAlignment="center"
+                    android:textColor="@color/black"
                     android:textSize="18sp" />
             </LinearLayout>
 
@@ -282,6 +297,7 @@
                     android:gravity="center"
                     android:text=""
                     android:textAlignment="center"
+                    android:textColor="@color/black"
                     android:textSize="18sp" />
 
                 <ImageView
@@ -300,6 +316,7 @@
                     android:gravity="center"
                     android:text="loading.."
                     android:textAlignment="center"
+                    android:textColor="@color/black"
                     android:textSize="18sp" />
             </LinearLayout>
 
@@ -318,6 +335,7 @@
                     android:gravity="center"
                     android:text=""
                     android:textAlignment="center"
+                    android:textColor="@color/black"
                     android:textSize="18sp" />
 
                 <ImageView
@@ -336,6 +354,7 @@
                     android:gravity="center"
                     android:text="loading.."
                     android:textAlignment="center"
+                    android:textColor="@color/black"
                     android:textSize="18sp" />
             </LinearLayout>
 
@@ -354,6 +373,7 @@
                     android:gravity="center"
                     android:text=""
                     android:textAlignment="center"
+                    android:textColor="@color/black"
                     android:textSize="18sp" />
 
                 <ImageView
@@ -371,6 +391,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="loading.."
+                    android:textColor="@color/black"
                     android:textAlignment="center"
                     android:textSize="18sp" />
             </LinearLayout>
@@ -389,7 +410,7 @@
     <HorizontalScrollView
         android:id="@+id/WeekWeatherScroll"
         android:layout_width="500dp"
-        android:layout_height="180dp"
+        android:layout_height="150dp"
         android:background="#5555"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="0dp"
@@ -417,7 +438,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-
+                    android:textColor="@color/black"
                     android:textAlignment="center"
                     android:textSize="18sp" />
 
@@ -437,13 +458,14 @@
                     android:gravity="center"
                     android:text="loading.."
                     android:textAlignment="center"
+                    android:textColor="@color/black"
                     android:textSize="18sp" />
                 <TextView
                     android:id="@+id/weekp1"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-
+                    android:textColor="@color/black"
                     android:textAlignment="center"
                     android:textSize="18sp" />
             </LinearLayout>
@@ -461,7 +483,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-
+                    android:textColor="@color/black"
                     android:textAlignment="center"
                     android:textSize="18sp" />
 
@@ -481,13 +503,14 @@
                     android:gravity="center"
                     android:text="loading.."
                     android:textAlignment="center"
+                    android:textColor="@color/black"
                     android:textSize="18sp" />
                 <TextView
                     android:id="@+id/weekp2"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-
+                    android:textColor="@color/black"
                     android:textAlignment="center"
                     android:textSize="18sp" />
             </LinearLayout>
@@ -505,7 +528,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-
+                    android:textColor="@color/black"
                     android:textAlignment="center"
                     android:textSize="18sp" />
 
@@ -525,13 +548,14 @@
                     android:gravity="center"
                     android:text="loading.."
                     android:textAlignment="center"
+                    android:textColor="@color/black"
                     android:textSize="18sp" />
                 <TextView
                     android:id="@+id/weekp3"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-
+                    android:textColor="@color/black"
                     android:textAlignment="center"
                     android:textSize="18sp" />
             </LinearLayout>
@@ -548,7 +572,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-
+                    android:textColor="@color/black"
                     android:textAlignment="center"
                     android:textSize="18sp" />
 
@@ -568,13 +592,14 @@
                     android:gravity="center"
                     android:text="loading.."
                     android:textAlignment="center"
+                    android:textColor="@color/black"
                     android:textSize="18sp" />
                 <TextView
                     android:id="@+id/weekp4"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-
+                    android:textColor="@color/black"
                     android:textAlignment="center"
                     android:textSize="18sp" />
             </LinearLayout>
@@ -591,7 +616,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-
+                    android:textColor="@color/black"
                     android:textAlignment="center"
                     android:textSize="18sp" />
 
@@ -611,13 +636,14 @@
                     android:gravity="center"
                     android:text="loading.."
                     android:textAlignment="center"
+                    android:textColor="@color/black"
                     android:textSize="18sp" />
                 <TextView
                     android:id="@+id/weekp5"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-
+                    android:textColor="@color/black"
                     android:textAlignment="center"
                     android:textSize="18sp" />
             </LinearLayout>
@@ -634,7 +660,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-
+                    android:textColor="@color/black"
                     android:textAlignment="center"
                     android:textSize="18sp" />
 
@@ -654,13 +680,14 @@
                     android:gravity="center"
                     android:text="loading.."
                     android:textAlignment="center"
+                    android:textColor="@color/black"
                     android:textSize="18sp" />
                 <TextView
                     android:id="@+id/weekp6"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-
+                    android:textColor="@color/black"
                     android:textAlignment="center"
                     android:textSize="18sp" />
             </LinearLayout>
