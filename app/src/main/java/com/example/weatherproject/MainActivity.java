@@ -7,6 +7,7 @@ import com.example.api2.Week1Image;
 import com.example.api2.Week2Image;
 import com.example.api2.Week37Image;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -23,7 +24,6 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Locale;
 
-
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -35,8 +35,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
-
-
 
 public class MainActivity extends AppCompatActivity {
 
@@ -54,11 +52,12 @@ public class MainActivity extends AppCompatActivity {
     private Week2Image week2image;
     private Week37Image week37image;
     TextView cityName;
-
+     //지역 초기화용
      private int nx=60;
      private int ny=126;
      private String regId1="11B10101";
      private String regId2="11B10101";
+
     private void api1(int nx, int ny, String regId1,String regId2){
         TodayNow today = new TodayNow();
         exToday extoday = new exToday();
@@ -124,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
                     nowTemTextView.setText(nowweathertextData);
 
                     for (int i = 0; i < 7; i++) {
-                        int textViewId = getResources().getIdentifier("daytem" + (i + 1), "id", getPackageName());
+                        @SuppressLint("DiscouragedApi") int textViewId = getResources().getIdentifier("daytem" + (i + 1), "id", getPackageName());
                         TextView dayTemTextView = findViewById(textViewId);
 
                         if (i < todayweatherDataArray.length) {
@@ -135,25 +134,25 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     for (int i = 0; i <= 1; i++) {
-                        int textViewId = getResources().getIdentifier("weektem" + (i+1), "id", getPackageName());
+                        @SuppressLint("DiscouragedApi") int textViewId = getResources().getIdentifier("weektem" + (i+1), "id", getPackageName());
                         TextView weekTemTextView12 = findViewById(textViewId);
                         weekTemTextView12.setText(weatherDataArray12[i]);
                     }
 
                     for (int i = 0; i <= 3; i++) {
-                        int textViewId = getResources().getIdentifier("weektem" + (i+3), "id", getPackageName());
+                        @SuppressLint("DiscouragedApi") int textViewId = getResources().getIdentifier("weektem" + (i+3), "id", getPackageName());
                         TextView weekTemTextView37 = findViewById(textViewId);
                         weekTemTextView37.setText(weatherDataArray37[i]);
                     }
 
                     for (int i = 0; i <= 1; i++) {
-                        int textViewId = getResources().getIdentifier("weekp" + (i+1), "id", getPackageName());
+                        @SuppressLint("DiscouragedApi") int textViewId = getResources().getIdentifier("weekp" + (i+1), "id", getPackageName());
                         TextView weekperTextView12 = findViewById(textViewId);
                         weekperTextView12.setText(PercentDataArray12[i]);
                     }
 
                     for (int i = 0; i <= 3; i++) {
-                        int textViewId = getResources().getIdentifier("weekp" + (i+3), "id", getPackageName());
+                        @SuppressLint("DiscouragedApi") int textViewId = getResources().getIdentifier("weekp" + (i+3), "id", getPackageName());
                         TextView weekperTextView37 = findViewById(textViewId);
                         weekperTextView37.setText(PercentDataArray37[i]);
                     }
@@ -268,7 +267,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         for (int i = 1; i <= 7; i++) {
-            int ImageViewId = getResources().getIdentifier("dayimage" + i, "id", getPackageName());
+            @SuppressLint("DiscouragedApi") int ImageViewId = getResources().getIdentifier("dayimage" + i, "id", getPackageName());
             ImageView dayImageView = findViewById(ImageViewId);
 
             switch (todayWeatherValue) {
