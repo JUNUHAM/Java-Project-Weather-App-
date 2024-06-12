@@ -6,17 +6,17 @@ import com.example.api2.TodayWeatherImage;
 import com.example.api2.Week1Image;
 import com.example.api2.Week2Image;
 import com.example.api2.Week37Image;
+import com.example.weatherproject.databinding.ActivityMainBinding;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-
-import androidx.activity.EdgeToEdge;
 
 import androidx.appcompat.app.AppCompatActivity;
 import java.text.SimpleDateFormat;
@@ -37,6 +37,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
 
 public class MainActivity extends AppCompatActivity {
+    private ActivityMainBinding binding;
 
     //api1
     private NowWeatherText nowWeathertext;
@@ -52,35 +53,38 @@ public class MainActivity extends AppCompatActivity {
     private Week2Image week2image;
     private Week37Image week37image;
     TextView cityName;
-     //지역 초기화용
-     private int nx=60;
-     private int ny=126;
-     private String regId1="11B10101";
-     private String regId2="11B10101";
+    //지역 초기화용
+    private int nx = 60;
+    private int ny = 126;
+    private String regId1 = "11B10101";
+    private String regId2 = "11B10101";
 
-    private void api1(int nx, int ny, String regId1,String regId2){
+    private void api1(int nx, int ny, String regId1, String regId2) {
         TodayNow today = new TodayNow();
         exToday extoday = new exToday();
         Hour514 time5 = new Hour514();
         Hour618 time6 = new Hour618();
         nowWeathertext = new NowWeatherText(today.formattedDate1, today.formattedDate2, nx, ny);
-        todayWeathertext = new TodayWeatherText( extoday.getFormattedDate(), time5.getFormattedTime(),nx,ny);
-        weektem12text = new WeekTem12Text(extoday.getFormattedDate(), time5.getFormattedTime(),nx,ny);
-        weektem37text = new WeekTem37Text(extoday.getFormattedDate(), time6.getFormattedTime(),regId1);
-        weekp12text = new WeekP12Text(extoday.getFormattedDate(), time5.getFormattedTime(),nx,ny);
-        weekp37text = new WeekP37Text(extoday.getFormattedDate(), time6.getFormattedTime(),regId2);
+        todayWeathertext = new TodayWeatherText(extoday.getFormattedDate(), time5.getFormattedTime(), nx, ny);
+        weektem12text = new WeekTem12Text(extoday.getFormattedDate(), time5.getFormattedTime(), nx, ny);
+        weektem37text = new WeekTem37Text(extoday.getFormattedDate(), time6.getFormattedTime(), regId1);
+        weekp12text = new WeekP12Text(extoday.getFormattedDate(), time5.getFormattedTime(), nx, ny);
+        weekp37text = new WeekP37Text(extoday.getFormattedDate(), time6.getFormattedTime(), regId2);
     }
-    private void api2(int nx ,int ny ,String regId2){
+
+    private void api2(int nx, int ny, String regId2) {
         exToday extoday = new exToday();
         Hour514 time5 = new Hour514();
         Hour618 time6 = new Hour618();
-        nowweatherimage =new NowWeatherImage(extoday.getFormattedDate() , time5.getFormattedTime(),nx,ny);
-        todayweatherimage =new TodayWeatherImage(extoday.getFormattedDate() , time5.getFormattedTime(),nx,ny);
-        week1image = new Week1Image(extoday.getFormattedDate(),time5.getFormattedTime(),nx,ny);
-        week2image = new Week2Image(extoday.getFormattedDate(),time5.getFormattedTime(),nx,ny);
-        week37image =new Week37Image(extoday.getFormattedDate(), time6.getFormattedTime(),regId2);
+        nowweatherimage = new NowWeatherImage(extoday.getFormattedDate(), time5.getFormattedTime(), nx, ny);
+        todayweatherimage = new TodayWeatherImage(extoday.getFormattedDate(), time5.getFormattedTime(), nx, ny);
+        week1image = new Week1Image(extoday.getFormattedDate(), time5.getFormattedTime(), nx, ny);
+        week2image = new Week2Image(extoday.getFormattedDate(), time5.getFormattedTime(), nx, ny);
+        week37image = new Week37Image(extoday.getFormattedDate(), time6.getFormattedTime(), regId2);
     }
+
     String[] itmes = {"서울", "인천", "대전", "대구", "울산", "부산", "광주", "안양"};
+
     private void fetchWeatherDataAndUpdateTextUI() {
         ExecutorService executor = Executors.newFixedThreadPool(6); // Create a thread pool with 6 threads
 
@@ -119,8 +123,7 @@ public class MainActivity extends AppCompatActivity {
                 String[] PercentDataArray37 = weekPercenttextData37.split("\n");
 
                 runOnUiThread(() -> {
-                    TextView nowTemTextView = findViewById(R.id.nowTem);
-                    nowTemTextView.setText(nowweathertextData);
+                    binding.nowTem.setText(nowweathertextData);
 
                     for (int i = 0; i < 7; i++) {
                         @SuppressLint("DiscouragedApi") int textViewId = getResources().getIdentifier("daytem" + (i + 1), "id", getPackageName());
@@ -134,25 +137,25 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     for (int i = 0; i <= 1; i++) {
-                        @SuppressLint("DiscouragedApi") int textViewId = getResources().getIdentifier("weektem" + (i+1), "id", getPackageName());
+                        @SuppressLint("DiscouragedApi") int textViewId = getResources().getIdentifier("weektem" + (i + 1), "id", getPackageName());
                         TextView weekTemTextView12 = findViewById(textViewId);
                         weekTemTextView12.setText(weatherDataArray12[i]);
                     }
 
                     for (int i = 0; i <= 3; i++) {
-                        @SuppressLint("DiscouragedApi") int textViewId = getResources().getIdentifier("weektem" + (i+3), "id", getPackageName());
+                        @SuppressLint("DiscouragedApi") int textViewId = getResources().getIdentifier("weektem" + (i + 3), "id", getPackageName());
                         TextView weekTemTextView37 = findViewById(textViewId);
                         weekTemTextView37.setText(weatherDataArray37[i]);
                     }
 
                     for (int i = 0; i <= 1; i++) {
-                        @SuppressLint("DiscouragedApi") int textViewId = getResources().getIdentifier("weekp" + (i+1), "id", getPackageName());
+                        @SuppressLint("DiscouragedApi") int textViewId = getResources().getIdentifier("weekp" + (i + 1), "id", getPackageName());
                         TextView weekperTextView12 = findViewById(textViewId);
                         weekperTextView12.setText(PercentDataArray12[i]);
                     }
 
                     for (int i = 0; i <= 3; i++) {
-                        @SuppressLint("DiscouragedApi") int textViewId = getResources().getIdentifier("weekp" + (i+3), "id", getPackageName());
+                        @SuppressLint("DiscouragedApi") int textViewId = getResources().getIdentifier("weekp" + (i + 3), "id", getPackageName());
                         TextView weekperTextView37 = findViewById(textViewId);
                         weekperTextView37.setText(PercentDataArray37[i]);
                     }
@@ -359,18 +362,41 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        // 초기 UI 설정
+        initializeUI();
+
+        // 시간 및 날짜 설정 비동기 처리
+        new Handler().postDelayed(this::initializeTimeAndDate, 0);
+
+        // 도시 선택 처리 비동기 처리
+        new Handler().postDelayed(this::initializeCitySelection, 0);
+    }
+
+    private void initializeUI() {
+        // Inset 처리
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        cityName = findViewById(R.id.cityName);
+        Spinner spinner = findViewById(R.id.my_spinner);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, itmes);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+        spinner.setSelection(0);
+    }
+
+    private void initializeTimeAndDate() {
         // 시간 처리
-        // 현재 시간 가져오기
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM월 dd일 HH시", Locale.KOREA);
         String currentTime = dateFormat.format(calendar.getTime());
@@ -382,7 +408,6 @@ public class MainActivity extends AppCompatActivity {
         nowTimeTextView.setText(currentTime);
 
         // 시간 처리
-        // 현재 시간 가져오기
         Calendar calendar24 = Calendar.getInstance();
         SimpleDateFormat dateFormat24 = new SimpleDateFormat("HH", Locale.KOREA);
         calendar24.add(Calendar.HOUR_OF_DAY, 1);
@@ -390,45 +415,30 @@ public class MainActivity extends AppCompatActivity {
 
         // time241부터 time247까지의 TextView를 반복문으로 설정
         for (int i = 241; i <= 247; i++) {
-            // TextView 식별
             int textViewId = getResources().getIdentifier("time" + i, "id", getPackageName());
             TextView timeTextView = findViewById(textViewId);
-
-            // 현재 시간 설정
             timeTextView.setText(currentTime24 + "시");
-
-            // 다음 시간 계산 (현재 시간으로부터 1시간씩 증가)
             calendar24.add(Calendar.HOUR_OF_DAY, 1);
             currentTime24 = dateFormat24.format(calendar24.getTime());
         }
+
         // 일 처리
-        // 다음날부터 일자 가져오기
         Calendar calendar7 = Calendar.getInstance();
         calendar7.add(Calendar.DAY_OF_MONTH, 1);
         SimpleDateFormat dateFormat7 = new SimpleDateFormat("dd", Locale.KOREA);
         String currentTime7 = dateFormat7.format(calendar7.getTime());
+
         for (int i = 72; i <= 77; i++) {
-            // TextView 식별
             int textViewId = getResources().getIdentifier("time" + i, "id", getPackageName());
             TextView timeTextView = findViewById(textViewId);
-
-            // 현재 시간 설정
             timeTextView.setText(currentTime7 + "일");
-
-            // 다음 날짜 계산 (현재 날짜로부터 1일씩 증가)
             calendar7.add(Calendar.DAY_OF_MONTH, 1);
             currentTime7 = dateFormat7.format(calendar7.getTime());
         }
+    }
 
-        cityName = findViewById(R.id.cityName);
+    private void initializeCitySelection() {
         Spinner spinner = findViewById(R.id.my_spinner);
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, itmes);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-
-        spinner.setSelection(0);
-
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -436,91 +446,43 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (position) {
                     case 0: //서울
-                        nx = 60;
-                        ny = 126;
-                        regId1 = "11B10101";
-                        regId2 = "11B00000";
-                        api1(nx,ny,regId1,regId2);
-                        api2(nx,ny,regId2);
-                        fetchWeatherDataAndUpdateTextUI();
-                        fetchWeatherDataAndUpdateImageUI();
+                        setCityData(60, 126, "11B10101", "11B00000");
                         break;
                     case 1: //인천
-                        nx = 56;
-                        ny = 126;
-                        regId1 = "11B20201";
-                        regId2 = "11B00000";
-                        api1(nx,ny,regId1,regId2);
-                        api2(nx,ny,regId2);
-                        fetchWeatherDataAndUpdateTextUI();
-                        fetchWeatherDataAndUpdateImageUI();
+                        setCityData(56, 126, "11B20201", "11B00000");
                         break;
                     case 2: //대전
-                        nx = 67;
-                        ny = 100;
-                        regId1 = "11C20401";
-                        regId2 = "11C20000";
-                        api1(nx,ny,regId1,regId2);
-                        api2(nx,ny,regId2);
-                        fetchWeatherDataAndUpdateTextUI();
-                        fetchWeatherDataAndUpdateImageUI();
+                        setCityData(67, 100, "11C20401", "11C20000");
                         break;
                     case 3: //대구
-                        nx = 89;
-                        ny = 90;
-                        regId1 = "11H10701";
-                        regId2 = "11H10000";
-                        api1(nx,ny,regId1,regId2);
-                        api2(nx,ny,regId2);
-                        fetchWeatherDataAndUpdateTextUI();
-                        fetchWeatherDataAndUpdateImageUI();
+                        setCityData(89, 90, "11H10701", "11H10000");
                         break;
                     case 4: //울산
-                        nx = 102;
-                        ny = 84;
-                        regId1 = "11H20101";
-                        regId2 = "11H20000";
-                        api1(nx,ny,regId1,regId2);
-                        api2(nx,ny,regId2);
-                        fetchWeatherDataAndUpdateTextUI();
-                        fetchWeatherDataAndUpdateImageUI();
+                        setCityData(102, 84, "11H20101", "11H20000");
                         break;
                     case 5: //부산
-                        nx = 98;
-                        ny = 76;
-                        regId1 = "11H20201";
-                        regId2 = "11H20000";
-                        api1(nx,ny,regId1,regId2);
-                        api2(nx,ny,regId2);
-                        fetchWeatherDataAndUpdateTextUI();
-                        fetchWeatherDataAndUpdateImageUI();
+                        setCityData(98, 76, "11H20201", "11H20000");
                         break;
                     case 6: //광주
-                        nx = 58;
-                        ny = 74;
-                        regId1 = "11B20702";
-                        regId2 = "11F20000";
-                        api1(nx,ny,regId1,regId2);
-                        api2(nx,ny,regId2);
-                        fetchWeatherDataAndUpdateTextUI();
-                        fetchWeatherDataAndUpdateImageUI();
+                        setCityData(58, 74, "11B20702", "11F20000");
                         break;
                     case 7: //안양
-                        nx = 59;
-                        ny = 123;
-                        regId1 = "11B20602";
-                        regId2 = "11B00000";
-                        api1(nx,ny,regId1,regId2);
-                        api2(nx,ny,regId2);
-                        fetchWeatherDataAndUpdateTextUI();
-                        fetchWeatherDataAndUpdateImageUI();
+                        setCityData(59, 123, "11B20602", "11B00000");
                         break;
                 }
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 cityName.setText("도시 선택");
             }
         });
+    }
+
+    private void setCityData(int nx, int ny, String regId1, String regId2) {
+        api1(nx, ny, regId1, regId2);
+        api2(nx, ny, regId2);
+        fetchWeatherDataAndUpdateTextUI();
+        fetchWeatherDataAndUpdateImageUI();
     }
 }
