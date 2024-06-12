@@ -18,6 +18,9 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+
+import androidx.activity.EdgeToEdge;
+
 import androidx.appcompat.app.AppCompatActivity;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -125,39 +128,110 @@ public class MainActivity extends AppCompatActivity {
                 runOnUiThread(() -> {
                     binding.nowTem.setText(nowweathertextData);
 
-                    for (int i = 0; i < 7; i++) {
-                        @SuppressLint("DiscouragedApi") int textViewId = getResources().getIdentifier("daytem" + (i + 1), "id", getPackageName());
-                        TextView dayTemTextView = findViewById(textViewId);
+                    for (int i = 0; i <= 6; i++) {
+                        TextView dayTemTextView = null;
+                        switch (i) {
+                            case 0:
+                                dayTemTextView = binding.daytem1;
+                                break;
+                            case 1:
+                                dayTemTextView = binding.daytem2;
+                                break;
+                            case 2:
+                                dayTemTextView = binding.daytem3;
+                                break;
+                            case 3:
+                                dayTemTextView = binding.daytem4;
+                                break;
+                            case 4:
+                                dayTemTextView = binding.daytem5;
+                                break;
+                            case 5:
+                                dayTemTextView = binding.daytem6;
+                                break;
+                            case 6:
+                                dayTemTextView = binding.daytem7;
+                                break;
 
-                        if (i < todayweatherDataArray.length) {
-                            dayTemTextView.setText(todayweatherDataArray[i]);
-                        } else {
-                            dayTemTextView.setText("N/A");
+                        }
+                        if (dayTemTextView != null) {
+                            if (i < todayweatherDataArray.length) {
+                                dayTemTextView.setText(todayweatherDataArray[i]);
+                            }
                         }
                     }
 
                     for (int i = 0; i <= 1; i++) {
-                        @SuppressLint("DiscouragedApi") int textViewId = getResources().getIdentifier("weektem" + (i + 1), "id", getPackageName());
-                        TextView weekTemTextView12 = findViewById(textViewId);
-                        weekTemTextView12.setText(weatherDataArray12[i]);
+                        TextView weekTemTextView12 = null;
+                        switch (i) {
+                            case 0:
+                                weekTemTextView12 = binding.weektem1;
+                                break;
+                            case 1:
+                                weekTemTextView12 = binding.weektem2;
+                                break;
+                        }
+                        if (weekTemTextView12 != null) {
+                            weekTemTextView12.setText(weatherDataArray12[i]);
+                        }
                     }
 
                     for (int i = 0; i <= 3; i++) {
-                        @SuppressLint("DiscouragedApi") int textViewId = getResources().getIdentifier("weektem" + (i + 3), "id", getPackageName());
-                        TextView weekTemTextView37 = findViewById(textViewId);
-                        weekTemTextView37.setText(weatherDataArray37[i]);
+                        TextView weekTemTextView37 = null;
+                        switch (i) {
+                            case 0:
+                                weekTemTextView37 = binding.weektem3;
+                                break;
+                            case 1:
+                                weekTemTextView37 = binding.weektem4;
+                                break;
+                            case 2:
+                                weekTemTextView37 = binding.weektem5;
+                                break;
+                            case 3:
+                                weekTemTextView37 = binding.weektem6;
+                                break;
+
+                        }
+                        if (weekTemTextView37 != null) {
+                            weekTemTextView37.setText(weatherDataArray37[i]);
+                        }
                     }
 
                     for (int i = 0; i <= 1; i++) {
-                        @SuppressLint("DiscouragedApi") int textViewId = getResources().getIdentifier("weekp" + (i + 1), "id", getPackageName());
-                        TextView weekperTextView12 = findViewById(textViewId);
-                        weekperTextView12.setText(PercentDataArray12[i]);
+                        TextView weekperTextView12 = null;
+                        switch (i) {
+                            case 0:
+                                weekperTextView12 = binding.weekp1;
+                                break;
+                            case 1:
+                                weekperTextView12 = binding.weekp2;
+                                break;
+                        }
+                        if (weekperTextView12 != null) {
+                            weekperTextView12.setText(PercentDataArray12[i]);
+                        }
                     }
 
                     for (int i = 0; i <= 3; i++) {
-                        @SuppressLint("DiscouragedApi") int textViewId = getResources().getIdentifier("weekp" + (i + 3), "id", getPackageName());
-                        TextView weekperTextView37 = findViewById(textViewId);
-                        weekperTextView37.setText(PercentDataArray37[i]);
+                        TextView weekperTextView37 = null;
+                        switch (i) {
+                            case 0:
+                                weekperTextView37 = binding.weekp3;
+                                break;
+                            case 1:
+                                weekperTextView37 = binding.weekp4;
+                                break;
+                            case 2:
+                                weekperTextView37 = binding.weekp5;
+                                break;
+                            case 3:
+                                weekperTextView37 = binding.weekp6;
+                                break;
+                        }
+                        if (weekperTextView37 != null) {
+                            weekperTextView37.setText(PercentDataArray37[i]);
+                        }
                     }
                 });
             } catch (Exception e) {
